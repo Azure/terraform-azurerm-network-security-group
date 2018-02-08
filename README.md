@@ -1,3 +1,40 @@
+# terraform-azurerm-network-security-group #
+[![Build Status](https://travis-ci.org/Azure/terraform-azurerm-network-security-group.svg?branch=master)](https://travis-ci.org/Azure/terraform-azurerm-network-security-group)
+
+Create a network security group
+==============================================================================
+
+This Terraform module deploys a Network Security Group in Azure and optionally attach it to the specifed vnets.
+
+This module is a complement to the [Azure Network](https://registry.terraform.io/modules/Azure/network/azurerm) module. Use the network_security_group_id from the output of this module to apply it to a subnet or network interface.
+
+Usage with multiple rules
+-------------------------
+
+```hcl
+module "network-security-group" {
+    source                  = "Azure/network-security-group/azurerm"
+    nsg_resource_group_name = "nsg"
+    location                = "westus"
+    security_group_name     = "nsg"
+    nsg_rules               = {
+            ssh = ["100", "Inbound", "Allow", "Tcp", "*", "22", "*", "*"]
+            http = ["200", "Inbound", "Allow", "Tcp", "*", "80", "*", "*"]
+        }
+    tags                    = {
+                                environment = "dev"
+                                costcenter  = "it"
+                              }
+}
+
+```
+
+Example adding a network security rule for SSH:
+-----------------------------------------------
+
+```hcl
+
+```
 
 # Contributing
 
