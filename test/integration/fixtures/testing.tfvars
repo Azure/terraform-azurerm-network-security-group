@@ -6,6 +6,11 @@ custom_rules = {
         }
 
 predefined_rules = { 
-    http-80-tcp = "300"
+    http-80-tcp = ""
+    http-443-tcp = ""
 }
 
+#rule_groupes = {
+#    ActiveDirectory
+#    
+#}
