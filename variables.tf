@@ -14,14 +14,14 @@ variable "security_group_name" {
 variable "tags" {
   description = "The tags to associate with your network security group."
   type        = "map"
-  default = {}
+  default     = {}
 }
 
 # Security Rules definition 
 
 # Default_Protocols 
 variable "predefined_rules" {
-  type = "map"
+  type    = "map"
   default = {}
 }
 
@@ -33,14 +33,16 @@ variable "custom_rules" {
 
 # source address prefix to be applied to all rules
 variable "source_address_prefix" {
-  type = "list"
+  type    = "list"
   default = ["*"]
+
   # Example ["10.0.3.0/24"] or ["VirtualNetwork"]
 }
 
 # Destination address prefix to be applied to all rules
 variable "destination_address_prefix" {
-  type = "list" 
+  type    = "list"
   default = ["*"]
+
   # Example ["10.0.3.0/32","10.0.3.128/32"] or ["VirtualNetwork"] 
 }

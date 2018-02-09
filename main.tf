@@ -23,7 +23,7 @@ resource "azurerm_network_security_rule" "simple_rules" {
   protocol                    = "${element(var.rules["${element(keys(var.predefined_rules), count.index)}"], 2)}"
   source_port_range           = "${element(var.rules["${element(keys(var.predefined_rules), count.index)}"], 3)}"
   destination_port_range      = "${element(var.rules["${element(keys(var.predefined_rules), count.index)}"], 4)}"
-  source_address_prefix       = "${join(",", var.source_address_prefix)}" 
+  source_address_prefix       = "${join(",", var.source_address_prefix)}"
   destination_address_prefix  = "${join(",", var.destination_address_prefix)}"
   description                 = "${element(var.rules["${element(keys(var.predefined_rules), count.index)}"], 5)}"
   resource_group_name         = "${azurerm_resource_group.nsg.name}"
@@ -44,10 +44,9 @@ resource "azurerm_network_security_rule" "advanced_rules" {
   protocol                    = "${element(var.custom_rules["${element(keys(var.custom_rules), count.index)}"], 3)}"
   source_port_range           = "${element(var.custom_rules["${element(keys(var.custom_rules), count.index)}"], 4)}"
   destination_port_range      = "${element(var.custom_rules["${element(keys(var.custom_rules), count.index)}"], 5)}"
-  source_address_prefix       = "${element(var.custom_rules["${element(keys(var.custom_rules), count.index)}"], 6)}" 
+  source_address_prefix       = "${element(var.custom_rules["${element(keys(var.custom_rules), count.index)}"], 6)}"
   destination_address_prefix  = "${element(var.custom_rules["${element(keys(var.custom_rules), count.index)}"], 7)}"
   description                 = "${element(var.custom_rules["${element(keys(var.custom_rules), count.index)}"], 8)}"
   resource_group_name         = "${azurerm_resource_group.nsg.name}"
   network_security_group_name = "${azurerm_network_security_group.nsg.name}"
 }
-
