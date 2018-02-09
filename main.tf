@@ -18,7 +18,6 @@ resource "azurerm_network_security_rule" "simple_rules" {
   count                       = "${length(var.predefined_rules)}"
   name                        = "${element(keys(var.predefined_rules), count.index)}"
   priority                    = "${coalesce(lookup(var.predefined_rules, element(keys(var.predefined_rules), count.index), "default" ), "${4096 - length(var.predefined_rules) + count.index }") }"
-  # priority                    = "${element(coalescelist( var.predefined_rules["${element(keys(var.predefined_rules), count.index)}"], ["${count.index * 10 + 1000}"] ), 0)}" 
   direction                   = "${element(var.rules["${element(keys(var.predefined_rules), count.index)}"], 0)}"
   access                      = "${element(var.rules["${element(keys(var.predefined_rules), count.index)}"], 1)}"
   protocol                    = "${element(var.rules["${element(keys(var.predefined_rules), count.index)}"], 2)}"
@@ -31,25 +30,6 @@ resource "azurerm_network_security_rule" "simple_rules" {
   network_security_group_name = "${azurerm_network_security_group.nsg.name}"
 }
 
-#################
-#  Rule groups  # 
-#################
-
-# resource "azurerm_network_security_rule" "rule_groups" {
-#   count                       = "${length(lookup)}"
-#   name                        = "${element(keys(var.predefined_rules), count.index)}"
-#   priority                    = "${lookup(var.predefined_rules, element(keys(var.predefined_rules), count.index), "100" )}"
-#   direction                   = "${element(var.rules["${element(keys(var.predefined_rules), count.index)}"], 0)}"
-#   access                      = "${element(var.rules["${element(keys(var.predefined_rules), count.index)}"], 1)}"
-#   protocol                    = "${element(var.rules["${element(keys(var.predefined_rules), count.index)}"], 2)}"
-#   source_port_range           = "${element(var.rules["${element(keys(var.predefined_rules), count.index)}"], 3)}"
-#   destination_port_range      = "${element(var.rules["${element(keys(var.predefined_rules), count.index)}"], 4)}"
-#   source_address_prefix       = "${join(",", var.source_address_prefix)}" 
-#   destination_address_prefix  = "${join(",", var.destination_address_prefix)}"
-#   description                 = "${element(var.rules["${element(keys(var.predefined_rules), count.index)}"], 5)}"
-#   resource_group_name         = "${azurerm_resource_group.nsg.name}"
-#   network_security_group_name = "${azurerm_network_security_group.nsg.name}"
-# }
 
 #############################
 #  Detailed security rules  # 
