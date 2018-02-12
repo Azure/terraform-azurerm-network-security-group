@@ -2,7 +2,7 @@
 driver:
   name: "terraform"
   root_module_directory: "test/integration/fixtures"
-  parallelism: 1
+  parallelism: 3
   variable_files:
     - "test/integration/fixtures/testing.tfvars"
 

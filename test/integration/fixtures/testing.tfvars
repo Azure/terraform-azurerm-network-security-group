@@ -7,5 +7,5 @@ custom_rules = {
 
 predefined_rules = { 
     http-80-tcp = ""
-    http-443-tcp = ""
+    https-443-tcp = ""
 }
