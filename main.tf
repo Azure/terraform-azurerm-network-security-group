@@ -14,18 +14,18 @@ resource "azurerm_network_security_group" "nsg" {
 #   Simple security rules   # 
 #############################
 
-resource "azurerm_network_security_rule" "simple_rules" {
+resource "azurerm_network_security_rule" "predefined_rules" {
   count                       = "${length(var.predefined_rules)}"
-  name                        = "${element(keys(var.predefined_rules), count.index)}"
-  priority                    = "${coalesce(lookup(var.predefined_rules, element(keys(var.predefined_rules), count.index), "default" ), "${4096 - length(var.predefined_rules) + count.index }") }"
-  direction                   = "${element(var.rules["${element(keys(var.predefined_rules), count.index)}"], 0)}"
-  access                      = "${element(var.rules["${element(keys(var.predefined_rules), count.index)}"], 1)}"
-  protocol                    = "${element(var.rules["${element(keys(var.predefined_rules), count.index)}"], 2)}"
-  source_port_range           = "${element(var.rules["${element(keys(var.predefined_rules), count.index)}"], 3)}"
-  destination_port_range      = "${element(var.rules["${element(keys(var.predefined_rules), count.index)}"], 4)}"
+  name                        = "${lookup(var.predefined_rules[count.index], "name")}"
+  priority                    = "${lookup(var.predefined_rules[count.index], "priority", "${4096 - length(var.predefined_rules) + count.index }" )}"
+  direction                   = "${element(var.rules["${lookup(var.predefined_rules[count.index], "name")}"], 0)}"
+  access                      = "${element(var.rules["${lookup(var.predefined_rules[count.index], "name")}"], 1)}"
+  protocol                    = "${element(var.rules["${lookup(var.predefined_rules[count.index], "name")}"], 2)}"
+  source_port_ranges          = "${split(",", replace(  "${lookup(var.predefined_rules[count.index], "source_port_range", "*" )}"  ,  "*" , "0-65535" ) )}"
+  destination_port_range      = "${element(var.rules["${lookup(var.predefined_rules[count.index], "name")}"], 4)}"
+  description                 = "${element(var.rules["${lookup(var.predefined_rules[count.index], "name")}"], 5)}"
   source_address_prefix       = "${join(",", var.source_address_prefix)}"
   destination_address_prefix  = "${join(",", var.destination_address_prefix)}"
-  description                 = "${element(var.rules["${element(keys(var.predefined_rules), count.index)}"], 5)}"
   resource_group_name         = "${azurerm_resource_group.nsg.name}"
   network_security_group_name = "${azurerm_network_security_group.nsg.name}"
 }
@@ -34,18 +34,18 @@ resource "azurerm_network_security_rule" "simple_rules" {
 #  Detailed security rules  # 
 #############################
 
-resource "azurerm_network_security_rule" "advanced_rules" {
+resource "azurerm_network_security_rule" "custom_rules" {
   count                       = "${length(var.custom_rules)}"
-  name                        = "${element(keys(var.custom_rules), count.index)}"
-  priority                    = "${element(var.custom_rules["${element(keys(var.custom_rules), count.index)}"], 0)}"
-  direction                   = "${element(var.custom_rules["${element(keys(var.custom_rules), count.index)}"], 1)}"
-  access                      = "${element(var.custom_rules["${element(keys(var.custom_rules), count.index)}"], 2)}"
-  protocol                    = "${element(var.custom_rules["${element(keys(var.custom_rules), count.index)}"], 3)}"
-  source_port_range           = "${element(var.custom_rules["${element(keys(var.custom_rules), count.index)}"], 4)}"
-  destination_port_range      = "${element(var.custom_rules["${element(keys(var.custom_rules), count.index)}"], 5)}"
-  source_address_prefix       = "${element(var.custom_rules["${element(keys(var.custom_rules), count.index)}"], 6)}"
-  destination_address_prefix  = "${element(var.custom_rules["${element(keys(var.custom_rules), count.index)}"], 7)}"
-  description                 = "${element(var.custom_rules["${element(keys(var.custom_rules), count.index)}"], 8)}"
+  name                        = "${lookup(var.custom_rules[count.index], "name", "default_rule_name")}"
+  priority                    = "${lookup(var.custom_rules[count.index], "priority", "100")}"
+  direction                   = "${lookup(var.custom_rules[count.index], "direction", "Any")}"
+  access                      = "${lookup(var.custom_rules[count.index], "access", "Allow")}"
+  protocol                    = "${lookup(var.custom_rules[count.index], "protocol", "*")}"
+  source_port_ranges          = "${split(",", replace(  "${lookup(var.custom_rules[count.index], "source_port_range", "*" )}"  ,  "*" , "0-65535" ) )}"
+  destination_port_ranges     = "${split(",", replace(  "${lookup(var.custom_rules[count.index], "destination_port_range", "*" )}"  ,  "*" , "0-65535" ) )}"
+  source_address_prefix       = "${lookup(var.custom_rules[count.index], "source_address_prefix", "*")}"
+  destination_address_prefix  = "${lookup(var.custom_rules[count.index], "destination_address_prefix", "*")}"
+  description                 = "${lookup(var.custom_rules[count.index], "description", "Security rule for ${lookup(var.custom_rules[count.index], "name", "default_rule_name")}")}"
   resource_group_name         = "${azurerm_resource_group.nsg.name}"
   network_security_group_name = "${azurerm_network_security_group.nsg.name}"
 }

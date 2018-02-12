@@ -19,16 +19,19 @@ variable "tags" {
 
 # Security Rules definition 
 
-# Default_Protocols 
+# Predefined rules   
 variable "predefined_rules" {
-  type    = "map"
-  default = {}
+  type    = "list"
+  default = []
 }
 
-# Custom security rules  
+# Custom security rules
+# [priority, direction, access, protocol, source_port_range, destination_port_range, description]"
+# All the fields are required.
 variable "custom_rules" {
   description = "Security rules for the network security group using this format name = [priority, direction, access, protocol, source_port_range, destination_port_range, source_address_prefix, destination_address_prefix, description]"
-  default     = {}
+  type        = "list"
+  default     = []
 }
 
 # source address prefix to be applied to all rules
