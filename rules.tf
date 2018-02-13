@@ -123,32 +123,3 @@ variable "rules" {
     WinRM = ["Inbound", "Allow", "TCP", "*", "5986", "WinRM"]
   }
 }
-
-variable "rules_group" {
-  description = "group of rules for standard applications"
-  type        = "map"
-
-  default = {
-    # WebServer 
-    webServer = ["http-80-tcp", "https-443-tcp"]
-
-    activeDirectory = [
-      "ad-389-tcp",
-      "ad-636-tcp",
-      "ad-3268-tcp",
-      "ad-3269-tcp",
-      "ad-53-all",
-      "ad-88-all",
-      "ad-445-all",
-      "ad-25-tcp",
-      "ad-135-tcp",
-      "ad-5722-tcp",
-      "ad-123-udp",
-      "ad-464-all",
-      "ad-138-udp",
-      "ad-9389-tcp",
-      "ad-137-udp",
-      "ad-139-tcp",
-    ]
-  }
-}
