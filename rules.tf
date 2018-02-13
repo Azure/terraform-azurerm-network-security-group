@@ -2,63 +2,153 @@ variable "rules" {
   description = "Standard set of predefined rules"
   type        = "map"
 
-  # [priority, direction, access, protocol, source_port_range, destination_port_range, description]"
+  # [direction, access, protocol, source_port_range, destination_port_range, description]"
   # The following info are in the submodules: source_address_prefix, destination_address_prefix
   default = {
-    # HTTP
-    http-80-tcp = ["Inbound", "Allow", "Tcp", "*", "80", "Allow HTTP"]
-    https-443-tcp = ["Inbound", "Allow", "Tcp", "*", "443", "Allow HTTPS"]
+    #ActiveDirectory
+    ActiveDirectory-AllowADReplication          = ["Inbound", "Allow", "*", "*", "389", "AllowADReplication"]
+    ActiveDirectory-AllowADReplicationSSL       = ["Inbound", "Allow", "*", "*", "636", "AllowADReplicationSSL"]
+    ActiveDirectory-AllowADGCReplication        = ["Inbound", "Allow", "TCP", "*", "3268", "AllowADGCReplication"]
+    ActiveDirectory-AllowADGCReplicationSSL     = ["Inbound", "Allow", "TCP", "*", "3269", "AllowADGCReplicationSSL"]
+    ActiveDirectory-AllowDNS                    = ["Inbound", "Allow", "*", "*", "53", "AllowDNS"]
+    ActiveDirectory-AllowKerberosAuthentication = ["Inbound", "Allow", "*", "*", "88", "AllowKerberosAuthentication"]
+    ActiveDirectory-AllowADReplicationTrust     = ["Inbound", "Allow", "*", "*", "445", "AllowADReplicationTrust"]
+    ActiveDirectory-AllowSMTPReplication        = ["Inbound", "Allow", "TCP", "*", "25", "AllowSMTPReplication"]
+    ActiveDirectory-AllowRPCReplication         = ["Inbound", "Allow", "TCP", "*", "135", "AllowRPCReplication"]
+    ActiveDirectory-AllowFileReplication        = ["Inbound", "Allow", "TCP", "*", "5722", "AllowFileReplication"]
+    ActiveDirectory-AllowWindowsTime            = ["Inbound", "Allow", "UDP", "*", "123", "AllowWindowsTime"]
+    ActiveDirectory-AllowPasswordChangeKerberes = ["Inbound", "Allow", "*", "*", "464", "AllowPasswordChangeKerberes"]
+    ActiveDirectory-AllowDFSGroupPolicy         = ["Inbound", "Allow", "UDP", "*", "138", "AllowDFSGroupPolicy"]
+    ActiveDirectory-AllowADDSWebServices        = ["Inbound", "Allow", "TCP", "*", "9389", "AllowADDSWebServices"]
+    ActiveDirectory-AllowNETBIOSAuthentication  = ["Inbound", "Allow", "UDP", "*", "137", "AllowNETBIOSAuthentication"]
+    ActiveDirectory-AllowNETBIOSReplication     = ["Inbound", "Allow", "TCP", "*", "139", "AllowNETBIOSReplication"]
 
-    # Active Directory
-    ad-389-tcp = ["Inbound", "Allow", "*", "389", "Allow AD Replication"]
-    ad-636-tcp = ["Inbound", "Allow", "*", "636", "Allow AD Replication SSL"]
-    ad-3268-tcp = ["Inbound", "Allow", "Tcp", "3268", "Allow AD GC Replication"]
-    ad-3269-tcp = ["Inbound", "Allow", "Tcp", "3269", "Allow AD GC Replication SSL"]
-    ad-53-all = ["Inbound", "Allow", "*", "53", "Allow DNS"]
-    ad-88-all = ["Inbound", "Allow", "*", "88", "Allow Kerberos Authentication"]
-    ad-445-all = ["Inbound", "Allow", "*", "445", "Allow AD Replication Trust"]
-    ad-25-tcp = ["Inbound", "Allow", "Tcp", "25", "Allow SMTP Replication"]
-    ad-135-tcp = ["Inbound", "Allow", "Tcp", "135", "Allow RPC Replication"]
-    ad-5722-tcp = ["Inbound", "Allow", "Tcp", "5722", "Allow File Replication"]
-    ad-123-udp = ["Inbound", "Allow", "Udp", "123", "Allow Windows Time"]
-    ad-464-all = ["Inbound", "Allow", "*", "464", "Allow Password Change Kerberes"]
-    ad-138-udp = ["Inbound", "Allow", "Udp", "138", "Allow DFS Group Policy"]
-    ad-9389-tcp = ["Inbound", "Allow", "Tcp", "9389", "Allow AD DS Web Services"]
-    ad-137-udp = ["Inbound", "Allow", "Udp", "137", "Allow NETBIOS Authentication"]
-    ad-139-tcp = ["Inbound", "Allow", "Tcp", "139", "Allow NETBIOS Replication"]
+    #Cassandra
+    Cassandra = ["Inbound", "Allow", "TCP", "*", "9042", "Cassandra"]
 
-    # SSH 
-    ssh = ["Inbound", "Allow", "Tcp", "*", "22", "SSH Rules"]
+    #Cassandra-JMX
+    Cassandra-JMX = ["Inbound", "Allow", "TCP", "*", "7199", "Cassandra-JMX"]
+
+    #Cassandra-Thrift
+    Cassandra-Thrift = ["Inbound", "Allow", "TCP", "*", "9160", "Cassandra-Thrift"]
+
+    #CouchDB
+    CouchDB = ["Inbound", "Allow", "TCP", "*", "5984", "CouchDB"]
+
+    #CouchDB-HTTPS
+    CouchDB-HTTPS = ["Inbound", "Allow", "TCP", "*", "6984", "CouchDB-HTTPS"]
+
+    #DNS-TCP
+    DNS-TCP = ["Inbound", "Allow", "TCP", "*", "53", "DNS-TCP"]
+
+    #DNS-UDP
+    DNS-UDP = ["Inbound", "Allow", "UDP", "*", "53", "DNS-UDP"]
+
+    #DynamicPorts
+    DynamicPorts = ["Inbound", "Allow", "TCP", "*", "49152-65535", "DynamicPorts"]
+
+    #ElasticSearch
+    ElasticSearch = ["Inbound", "Allow", "TCP", "*", "9200-9300", "ElasticSearch"]
+
+    #FTP
+    FTP = ["Inbound", "Allow", "TCP", "*", "21", "FTP"]
+
+    #HTTP
+    HTTP = ["Inbound", "Allow", "TCP", "*", "80", "HTTP"]
+
+    #HTTPS
+    HTTPS = ["Inbound", "Allow", "TCP", "*", "443", "HTTPS"]
+
+    #IMAP
+    IMAP = ["Inbound", "Allow", "TCP", "*", "143", "IMAP"]
+
+    #IMAPS
+    IMAPS = ["Inbound", "Allow", "TCP", "*", "993", "IMAPS"]
+
+    #Kestrel
+    Kestrel = ["Inbound", "Allow", "TCP", "*", "22133", "Kestrel"]
+
+    #LDAP
+    LDAP = ["Inbound", "Allow", "TCP", "*", "389", "LDAP"]
+
+    #MongoDB
+    MongoDB = ["Inbound", "Allow", "TCP", "*", "27017", "MongoDB"]
+
+    #Memcached
+    Memcached = ["Inbound", "Allow", "TCP", "*", "11211", "Memcached"]
+
+    #MSSQL
+    MSSQL = ["Inbound", "Allow", "TCP", "*", "1433", "MSSQL"]
+
+    #MySQL
+    MySQL = ["Inbound", "Allow", "TCP", "*", "3306", "MySQL"]
+
+    #Neo4J
+    Neo4J = ["Inbound", "Allow", "TCP", "*", "7474", "Neo4J"]
+
+    #POP3
+    POP3 = ["Inbound", "Allow", "TCP", "*", "110", "POP3"]
+
+    #POP3S
+    POP3S = ["Inbound", "Allow", "TCP", "*", "995", "POP3S"]
+
+    #PostgreSQL
+    PostgreSQL = ["Inbound", "Allow", "TCP", "*", "5432", "PostgreSQL"]
+
+    #RabbitMQ
+    RabbitMQ = ["Inbound", "Allow", "TCP", "*", "5672", "RabbitMQ"]
+
+    #RDP
+    RDP = ["Inbound", "Allow", "TCP", "*", "3389", "RDP"]
+
+    #Redis
+    Redis = ["Inbound", "Allow", "TCP", "*", "6379", "Redis"]
+
+    #Riak
+    Riak = ["Inbound", "Allow", "TCP", "*", "8093", "Riak"]
+
+    #Riak-JMX
+    Riak-JMX = ["Inbound", "Allow", "TCP", "*", "8985", "Riak-JMX"]
+
+    #SMTP
+    SMTP = ["Inbound", "Allow", "TCP", "*", "25", "SMTP"]
+
+    #SMTPS
+    SMTPS = ["Inbound", "Allow", "TCP", "*", "465", "SMTPS"]
+
+    #SSH
+    SSH = ["Inbound", "Allow", "TCP", "*", "22", "SSH"]
+
+    #WinRM
+    WinRM = ["Inbound", "Allow", "TCP", "*", "5986", "WinRM"]
   }
 }
 
 variable "rules_group" {
   description = "group of rules for standard applications"
-  type = "map"
+  type        = "map"
 
   default = {
     # WebServer 
-    webServer = {
-      http-80-tcp = 
-      https-443-tcp = 
-    }
-    activeDirectory = {
-      ad-389-tcp = 
-      ad-636-tcp = 
-      ad-3268-tcp = 
-      ad-3269-tcp = 
-      ad-53-all = 
-      ad-88-all = 
-      ad-445-all = 
-      ad-25-tcp = 
-      ad-135-tcp = 
-      ad-5722-tcp = 
-      ad-123-udp = 
-      ad-464-all = 
-      ad-138-udp = 
-      ad-9389-tcp = 
-      ad-137-udp = 
-      ad-139-tcp = 
-    }
+    webServer = ["http-80-tcp", "https-443-tcp"]
+
+    activeDirectory = [
+      "ad-389-tcp",
+      "ad-636-tcp",
+      "ad-3268-tcp",
+      "ad-3269-tcp",
+      "ad-53-all",
+      "ad-88-all",
+      "ad-445-all",
+      "ad-25-tcp",
+      "ad-135-tcp",
+      "ad-5722-tcp",
+      "ad-123-udp",
+      "ad-464-all",
+      "ad-138-udp",
+      "ad-9389-tcp",
+      "ad-137-udp",
+      "ad-139-tcp",
+    ]
   }
 }
