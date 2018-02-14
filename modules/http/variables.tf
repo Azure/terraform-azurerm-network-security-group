@@ -19,6 +19,12 @@ variable "tags" {
   default     = {}
 }
 
+variable "custom_rules" {
+  description = "Custom set of security rules using this format"
+  type        = "list"
+  default     = []
+}
+
 # Security rules configuration 
 variable "source_address_prefix" {
   type    = "list"

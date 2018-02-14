@@ -6,7 +6,7 @@ driver:
   parallelism: 1
 
   variable_files:
-    - "test/integration/fixtures/testing.tfvars"
+    - "test/integration/fixtures/terraform.tfvars"
 
 provisioner:
   name: "terraform"

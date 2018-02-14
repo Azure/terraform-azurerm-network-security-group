@@ -5,6 +5,7 @@ module "nsg" {
   security_group_name = "${var.security_group_name}"
 
   predefined_rules = [{
+<<<<<<< HEAD
       name = "http-80-tcp" 
       priority = "120"
       source_port_range = "*"
@@ -16,6 +17,12 @@ module "nsg" {
     }
   ]
 
+=======
+    name     = "HTTP"
+  },
+  ]
+  custom_rules               = "${var.custom_rules}"
+>>>>>>> origin/master
   source_address_prefix      = "${var.source_address_prefix}"
   destination_address_prefix = "${var.destination_address_prefix}"
   tags                       = "${var.tags}"
