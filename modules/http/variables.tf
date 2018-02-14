@@ -6,7 +6,7 @@ variable "resource_group_name" {
 
 variable "security_group_name" {
   description = "Name of the network security group"
-  default = "nsg"
+  default     = "nsg"
 }
 
 variable "location" {
@@ -16,21 +16,26 @@ variable "location" {
 variable "tags" {
   description = "The tags to associate with your network security group."
   type        = "map"
-  default = {}
+  default     = {}
+}
+
+variable "custom_rules" {
+  description = "Custom set of security rules using this format"
+  type        = "list"
+  default     = []
 }
 
 # Security rules configuration 
 variable "source_address_prefix" {
-  type = "list"
+  type    = "list"
   default = ["*"]
+
   # Example ["10.0.3.0/24"]
 }
 
 variable "destination_address_prefix" {
-  type = "list" 
+  type    = "list"
   default = ["*"]
+
   # Example ["10.0.3.0/32","10.0.3.128/32"]
 }
-
-
-
