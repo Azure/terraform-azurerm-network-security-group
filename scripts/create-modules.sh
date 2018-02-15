@@ -28,7 +28,7 @@ while read -r LINE
       #Add a rule entry for each rule
       sed -i '' '/predefined_rules/ a\ 
                {\
-                   name = '"$RULE_NAME"'\
+                   name = \"'"$RULE_NAME"'\"\
                },\
                ' ../modules/$MODULE_NAME/main.tf
    

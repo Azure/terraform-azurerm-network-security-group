@@ -6,7 +6,7 @@ module "nsg" {
 
   predefined_rules = [
 {
-name = MSSQL 
+name = "MSSQL"
 },
 
   ]

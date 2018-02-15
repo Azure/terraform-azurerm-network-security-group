@@ -6,52 +6,52 @@ module "nsg" {
 
   predefined_rules = [
 {
-name = ActiveDirectory-AllowNETBIOSReplication 
+name = "ActiveDirectory-AllowNETBIOSReplication"
 },
 {
-name = ActiveDirectory-AllowNETBIOSAuthentication 
+name = "ActiveDirectory-AllowNETBIOSAuthentication"
 },
 {
-name = ActiveDirectory-AllowADDSWebServices 
+name = "ActiveDirectory-AllowADDSWebServices"
 },
 {
-name = ActiveDirectory-AllowDFSGroupPolicy 
+name = "ActiveDirectory-AllowDFSGroupPolicy"
 },
 {
-name = ActiveDirectory-AllowPasswordChangeKerberes 
+name = "ActiveDirectory-AllowPasswordChangeKerberes"
 },
 {
-name = ActiveDirectory-AllowWindowsTime 
+name = "ActiveDirectory-AllowWindowsTime"
 },
 {
-name = ActiveDirectory-AllowFileReplication 
+name = "ActiveDirectory-AllowFileReplication"
 },
 {
-name = ActiveDirectory-AllowRPCReplication 
+name = "ActiveDirectory-AllowRPCReplication"
 },
 {
-name = ActiveDirectory-AllowSMTPReplication 
+name = "ActiveDirectory-AllowSMTPReplication"
 },
 {
-name = ActiveDirectory-AllowADReplicationTrust 
+name = "ActiveDirectory-AllowADReplicationTrust"
 },
 {
-name = ActiveDirectory-AllowKerberosAuthentication 
+name = "ActiveDirectory-AllowKerberosAuthentication"
 },
 {
-name = ActiveDirectory-AllowDNS 
+name = "ActiveDirectory-AllowDNS"
 },
 {
-name = ActiveDirectory-AllowADGCReplicationSSL 
+name = "ActiveDirectory-AllowADGCReplicationSSL"
 },
 {
-name = ActiveDirectory-AllowADGCReplication 
+name = "ActiveDirectory-AllowADGCReplication"
 },
 {
-name = ActiveDirectory-AllowADReplicationSSL 
+name = "ActiveDirectory-AllowADReplicationSSL"
 },
 {
-name = ActiveDirectory-AllowADReplication 
+name = "ActiveDirectory-AllowADReplication"
 },
 
   ]

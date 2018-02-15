@@ -6,7 +6,7 @@ module "nsg" {
 
   predefined_rules = [
 {
-name = SMTPS 
+name = "SMTPS"
 },
 
   ]
