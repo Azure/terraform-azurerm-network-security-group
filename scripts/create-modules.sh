@@ -7,7 +7,11 @@ MODULE_NAME=""
 while read -r LINE
   do 
 
-    if [[ $LINE =~ \# ]]; then
+    if [[ $LINE == "default = {" ]]; then
+      DEFAULT=true
+    fi 
+
+    if [[ $LINE =~ \# ]] && [[ $DEFAULT = true ]]; then
       #echo "line=$line" 
       MODULE_NAME=$(echo $LINE | sed -e 's/#//' | tr -d '\n')
       #echo $MODULE_NAME
