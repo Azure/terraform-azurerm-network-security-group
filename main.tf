@@ -37,7 +37,7 @@ resource "azurerm_network_security_rule" "predefined_rules" {
 resource "azurerm_network_security_rule" "custom_rules" {
   count                       = "${length(var.custom_rules)}"
   name                        = "${lookup(var.custom_rules[count.index], "name", "default_rule_name")}"
-  priority                    = "${lookup(var.custom_rules[count.index], "priority", "100")}"
+  priority                    = "${lookup(var.custom_rules[count.index], "priority")}"
   direction                   = "${lookup(var.custom_rules[count.index], "direction", "Any")}"
   access                      = "${lookup(var.custom_rules[count.index], "access", "Allow")}"
   protocol                    = "${lookup(var.custom_rules[count.index], "protocol", "*")}"
