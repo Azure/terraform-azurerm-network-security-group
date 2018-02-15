@@ -25,11 +25,11 @@ custom_rules = [
 
 predefined_rules = [
   {
-    name              = "http-80-tcp"
+    name              = "HTTP"
     source_port_range = "666,1024-1026"
   },
   {
-    name     = "https-443-tcp"
+    name     = "HTTPS"
     priority = "510"
   },
 ]

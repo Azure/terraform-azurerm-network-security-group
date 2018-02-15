@@ -5,6 +5,7 @@ variable "rules" {
   # [direction, access, protocol, source_port_range, destination_port_range, description]"
   # The following info are in the submodules: source_address_prefix, destination_address_prefix
   default = {
+
     #ActiveDirectory
     ActiveDirectory-AllowADReplication          = ["Inbound", "Allow", "*", "*", "389", "AllowADReplication"]
     ActiveDirectory-AllowADReplicationSSL       = ["Inbound", "Allow", "*", "*", "636", "AllowADReplicationSSL"]
@@ -121,5 +122,6 @@ variable "rules" {
 
     #WinRM
     WinRM = ["Inbound", "Allow", "TCP", "*", "5986", "WinRM"]
+
   }
 }
