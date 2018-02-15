@@ -21,7 +21,10 @@ verifier:
     -
       name: "local"
       controls:
-        - "state_file"
+        - "state_file1"
+        - "state_file2"
+        - "state_file3"
+        - "state_file4"
 
 suites:
   - name: "default"

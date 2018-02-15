@@ -5,10 +5,9 @@ module "nsg" {
   security_group_name = "${var.security_group_name}"
 
   predefined_rules = [
-{
-name = "FTP"
-},
-
+    {
+      name = "FTP"
+    },
   ]
 
   custom_rules               = "${var.custom_rules}"

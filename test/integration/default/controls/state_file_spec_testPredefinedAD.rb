@@ -4,7 +4,7 @@
 terraform_state = attribute "terraform_state", {}
 
 # Define how critical this control is.
-control "state_file" do
+control "state_file2" do
   # Define how critical this control is.
   impact 0.6
   # The actual test case.
