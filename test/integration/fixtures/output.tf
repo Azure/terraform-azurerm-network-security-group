@@ -7,7 +7,7 @@ output "network_security_group_id_testPredefinedAD" {
 }
 
 output "network_security_group_id_testPredefinedWithCustom" {
-  value = "${module.testPredefinedRuleWithCustomRules.network_security_group_id}"
+  value = "${module.testPredefinedRuleWithCustom.network_security_group_id}"
 }
 
 output "network_security_group_id_testCustom" {

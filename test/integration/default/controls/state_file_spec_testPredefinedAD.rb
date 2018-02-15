@@ -15,10 +15,10 @@ control "state_file" do
     data_hash = JSON.parse(file)
     modules = data_hash["modules"]
 
-    subject do modules[1]["resources"]["azurerm_network_security_rule.advanced_rules.0"]["primary"]["attributes"]["name"] end
+    subject do modules[5]["resources"]["azurerm_network_security_rule.predefined_rules.0"]["primary"]["attributes"]["name"] end
 
     # Validate the terraform version number field.
-    it "is valid" do is_expected.to match "http" end
+    it "is valid" do is_expected.to match "ActiveDirectory-AllowNETBIOSReplication" end
   end
 end
 
