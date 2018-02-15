@@ -12,18 +12,28 @@ resource "random_id" "randomize" {
   byte_length = 8
 }
 
-module "testSimple" {
-  source              = "../../../modules/http/"
+########################################################
+# Using a pre-defined rule for http.  Create a network security group that restricts access to port 80 inbound.  No restrictions on source address/port.
+########################################################
+module "testPredefinedHTTP" {
+  source              = "../../../modules/HTTP/"
   resource_group_name = "${random_id.randomize.hex}"
   location            = "${var.location}"
-  security_group_name = "nsg_testSimple"
+  security_group_name = "nsg_testPredefinedHTTP"
 }
 
-module "testSimpleWithCustom" {
+module "testPredefinedAD" {
+  source              = "../../../modules/ActiveDirectory/"
+  resource_group_name = "${random_id.randomize.hex}"
+  location            = "${var.location}"
+  security_group_name = "nsg_testPredefinedAD"
+}
+
+module "testPredefinedRuleWithCustomRules" {
   source              = "../../../"
   resource_group_name = "${random_id.randomize.hex}"
   location            = "${var.location}"
-  security_group_name = "nsg_testSimpleWithCustom"
+  security_group_name = "nsg_testPredefinedWithCustom"
   custom_rules        = "${var.custom_rules}"
   predefined_rules    = "${var.predefined_rules}"
 }
@@ -33,53 +43,5 @@ module "testCustom" {
   resource_group_name = "${random_id.randomize.hex}"
   location            = "${var.location}"
   security_group_name = "nsg_testCustom"
-  custom_rules        = "${var.custom_rules}"
-}
-
-module "testCustomSourcePort" {
-  source              = "../../../"
-  resource_group_name = "${random_id.randomize.hex}"
-  location            = "${var.location}"
-  security_group_name = "nsg_testCustom"
-  custom_rules        = "${var.custom_rules}"
-}
-
-module "testCustomDestinationPort" {
-  source              = "../../../"
-  resource_group_name = "${random_id.randomize.hex}"
-  location            = "${var.location}"
-  security_group_name = "nsg_testCustomDestinationPort"
-  custom_rules        = "${var.custom_rules}"
-}
-
-module "testCustomSourcePortRange1" {
-  source              = "../../../"
-  resource_group_name = "${random_id.randomize.hex}"
-  location            = "${var.location}"
-  security_group_name = "nsg_testCustomSourcePortRange1"
-  custom_rules        = "${var.custom_rules}"
-}
-
-module "testCustomSourcePortRange2" {
-  source              = "../../../"
-  resource_group_name = "${random_id.randomize.hex}"
-  location            = "${var.location}"
-  security_group_name = "nsg_testCustomSourcePortRange2"
-  custom_rules        = "${var.custom_rules}"
-}
-
-module "testCustomDestinationPortRange1" {
-  source              = "../../../"
-  resource_group_name = "${random_id.randomize.hex}"
-  location            = "${var.location}"
-  security_group_name = "nsg_testCustomDestinationPortRange1"
-  custom_rules        = "${var.custom_rules}"
-}
-
-module "testCustomDestinationPortRange2" {
-  source              = "../../../"
-  resource_group_name = "${random_id.randomize.hex}"
-  location            = "${var.location}"
-  security_group_name = "nsg_testCustomDestinationPortRange2"
   custom_rules        = "${var.custom_rules}"
 }
