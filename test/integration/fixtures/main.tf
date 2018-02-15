@@ -29,7 +29,7 @@ module "testPredefinedAD" {
   security_group_name = "nsg_testPredefinedAD"
 }
 
-module "testPredefinedRuleWithCustomRules" {
+module "testPredefinedRuleWithCustom" {
   source              = "../../../"
   resource_group_name = "${random_id.randomize.hex}"
   location            = "${var.location}"

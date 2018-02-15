@@ -4,7 +4,7 @@
 terraform_state = attribute "terraform_state", {}
 
 # Define how critical this control is.
-control "state_file" do
+control "state_file1" do
   # Define how critical this control is.
   impact 0.6
   # The actual test case.
@@ -15,10 +15,10 @@ control "state_file" do
     data_hash = JSON.parse(file)
     modules = data_hash["modules"]
 
-    subject do modules[1]["resources"]["azurerm_network_security_rule.advanced_rules.0"]["primary"]["attributes"]["name"] end
+    subject do modules[1]["resources"]["azurerm_network_security_rule.custom_rules.1"]["primary"]["attributes"]["name"] end
 
     # Validate the terraform version number field.
-    it "is valid" do is_expected.to match "http" end
+    it "is valid" do is_expected.to match "myhttp" end
   end
 end
 

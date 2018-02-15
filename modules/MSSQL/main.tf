@@ -5,10 +5,9 @@ module "nsg" {
   security_group_name = "${var.security_group_name}"
 
   predefined_rules = [
-{
-name = "MSSQL"
-},
-
+    {
+      name = "MSSQL"
+    },
   ]
 
   custom_rules               = "${var.custom_rules}"
