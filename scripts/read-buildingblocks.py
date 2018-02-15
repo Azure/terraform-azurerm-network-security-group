@@ -15,9 +15,8 @@ for idx, val in (enumerate(data)):
             shortname = val
         else:
             shortname = val + "-" + rules['name']
-        #print (len(data[val]))
-        print ("%s = [\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",]" % (shortname, rules['direction'], rules['access'], rules['protocol'], rules['sourcePortRange'], rules['destinationPortRange'], rules['name']), file= output_file)
-        print ("%s = [\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",]" % (shortname, rules['direction'], rules['access'], rules['protocol'], rules['sourcePortRange'], rules['destinationPortRange'], rules['name']))
+        print ("%s=[\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",]" % (shortname, rules['direction'], rules['access'], rules['protocol'], rules['sourcePortRange'], rules['destinationPortRange'], rules['name']), file= output_file)
+        print ("%s=[\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",]" % (shortname, rules['direction'], rules['access'], rules['protocol'], rules['sourcePortRange'], rules['destinationPortRange'], rules['name']))
 
 
 # [direction, access, protocol, source_port_range, destination_port_range, description]"
