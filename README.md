@@ -1,42 +1,92 @@
 # terraform-azurerm-network-security-group #
+
 [![Build Status](https://travis-ci.org/Azure/terraform-azurerm-network-security-group.svg?branch=master)](https://travis-ci.org/Azure/terraform-azurerm-network-security-group)
 
 Create a network security group
-==============================================================================
+-------------------------------
 
-This Terraform module deploys a Network Security Group in Azure and optionally attach it to the specifed vnets.
+This Terraform module deploys a Network Security Group in Azure and optionally attach it to the specified vnets.
 
-This module is a complement to the [Azure Network](https://registry.terraform.io/modules/Azure/network/azurerm) module. Use the network_security_group_id from the output of this module to apply it to a subnet or network interface.
+This module is a complement to the [Azure Network](https://registry.terraform.io/modules/Azure/network/azurerm) module. Use the network_security_group_id from the output of this module to apply it to a subnet in the Azure Network module.
+NOTE: We are working on adding the support for network interface in the future.
 
-Usage with multiple rules
--------------------------
+This module includes a a set of pre-defined rules for commonly used protocols (for example HTTP or ActiveDirectory) that can be used directly in their corresponding modules or as independent rules.
+
+Usage with the generic module:
+------------------------------
+
+The following example demonstrate how to use the network-security-group module with a combination of predefined and custom rules.
 
 ```hcl
 module "network-security-group" {
-    source                  = "Azure/network-security-group/azurerm"
-    nsg_resource_group_name = "nsg"
-    location                = "westus"
-    security_group_name     = "nsg"
-    nsg_rules               = {
-            ssh = ["100", "Inbound", "Allow", "Tcp", "*", "22", "*", "*"]
-            http = ["200", "Inbound", "Allow", "Tcp", "*", "80", "*", "*"]
-        }
-    tags                    = {
-                                environment = "dev"
-                                costcenter  = "it"
-                              }
+    source                     = "Azure/network-security-group/azurerm"
+    resource_group_name        = "nsg-resource-group"
+    location                   = "westus"
+    security_group_name        = "nsg"
+    predefined_rules           = [
+      {
+        name                   = "SSH"
+        priority               = "500"
+        source_address_prefix  = ["10.0.3.0/24"]
+      },
+      {
+        name                   = "LDAP"
+        source_port_range      = "1024-1026"
+      }
+    ]
+    custom_rules               = [
+      {
+        name                   = "myhttp"
+        priority               = "200"
+        direction              = "Inbound"
+        access                 = "Allow"
+        protocol               = "tcp"
+        destination_port_range = "8080"
+        description            = "description-myhttp"
+      }
+    ]
+    tags                       = {
+                                   environment = "dev"
+                                   costcenter  = "it"
+                                 }
 }
-
 ```
 
-Example adding a network security rule for SSH:
------------------------------------------------
+Usage with the pre-defined module:
+----------------------------------
+
+The following example demonstrate how to use the pre-defined HTTP module with a custom rule for ssh.
 
 ```hcl
-
+module "network-security-group" {
+    source                     = "Azure/network-security-group/azurerm//modules/HTTP"
+    resource_group_name        = "nsg-resource-group"
+    location                   = "westus"
+    security_group_name        = "nsg"
+    custom_rules               = [
+      {
+        name                   = "ssh"
+        priority               = "200"
+        direction              = "Inbound"
+        access                 = "Allow"
+        protocol               = "tcp"
+        destination_port_range = "22"
+        source_address_prefix  = ["VirtualNetwork"]
+        description            = "ssh-for-vm-management"
+      }
+    ]
+    tags                       = {
+                                  environment = "dev"
+                                  costcenter  = "it"
+                                 }
+}
 ```
 
-# Contributing
+## Authors
+
+Originally created by [Damien Caro](http://github.com/dcaro) and [Richard Guthrie](https://github.com/rguthriemsft).
+
+## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
