@@ -5,10 +5,10 @@
 Create a network security group
 -------------------------------
 
-This Terraform module deploys a Network Security Group in Azure and optionally attach it to the specified vnets.
+This Terraform module deploys a Network Security Group (NSG) in Azure and optionally attach it to the specified vnets.
 
 This module is a complement to the [Azure Network](https://registry.terraform.io/modules/Azure/network/azurerm) module. Use the network_security_group_id from the output of this module to apply it to a subnet in the Azure Network module.
-NOTE: We are working on adding the support for network interface in the future.
+NOTE: We are working on adding the support for applying a NSG to a network interface directly as a future enhancement.
 
 This module includes a a set of pre-defined rules for commonly used protocols (for example HTTP or ActiveDirectory) that can be used directly in their corresponding modules or as independent rules.
 
