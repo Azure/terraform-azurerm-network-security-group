@@ -4,6 +4,11 @@ variable "resource_group_name" {
   description = "Name of the resource group"
 }
 
+variable rg_create {
+  description = "Create a resource group: true/false"
+  default     = "false"
+}
+
 variable "location" {}
 
 variable "security_group_name" {
