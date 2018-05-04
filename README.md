@@ -1,7 +1,5 @@
 # terraform-azurerm-network-security-group #
 
-[![Build Status](https://travis-ci.org/Azure/terraform-azurerm-network-security-group.svg?branch=master)](https://travis-ci.org/Azure/terraform-azurerm-network-security-group)
-
 Create a network security group
 -------------------------------
 
