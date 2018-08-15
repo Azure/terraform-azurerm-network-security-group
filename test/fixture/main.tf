@@ -1,13 +1,3 @@
-variable "location" {}
-
-variable "custom_rules" {
-  type = "list"
-}
-
-variable "predefined_rules" {
-  type = "list"
-}
-
 resource "random_id" "randomize" {
   byte_length = 8
 }
@@ -16,21 +6,21 @@ resource "random_id" "randomize" {
 # Using a pre-defined rule for http.  Create a network security group that restricts access to port 80 inbound.  No restrictions on source address/port.
 ########################################################
 module "testPredefinedHTTP" {
-  source              = "../../../modules/HTTP/"
+  source              = "../../modules/HTTP/"
   resource_group_name = "${random_id.randomize.hex}"
   location            = "${var.location}"
   security_group_name = "nsg_testPredefinedHTTP"
 }
 
 module "testPredefinedAD" {
-  source              = "../../../modules/ActiveDirectory/"
+  source              = "../../modules/ActiveDirectory/"
   resource_group_name = "${random_id.randomize.hex}"
   location            = "${var.location}"
   security_group_name = "nsg_testPredefinedAD"
 }
 
 module "testPredefinedRuleWithCustom" {
-  source              = "../../../"
+  source              = "../../"
   resource_group_name = "${random_id.randomize.hex}"
   location            = "${var.location}"
   security_group_name = "nsg_testPredefinedWithCustom"
@@ -39,7 +29,7 @@ module "testPredefinedRuleWithCustom" {
 }
 
 module "testCustom" {
-  source              = "../../../"
+  source              = "../../"
   resource_group_name = "${random_id.randomize.hex}"
   location            = "${var.location}"
   security_group_name = "nsg_testCustom"
