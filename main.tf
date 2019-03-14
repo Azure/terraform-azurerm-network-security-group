@@ -21,7 +21,7 @@ resource "azurerm_network_security_rule" "predefined_rules" {
   direction                   = "${element(var.rules["${lookup(var.predefined_rules[count.index], "name")}"], 0)}"
   access                      = "${element(var.rules["${lookup(var.predefined_rules[count.index], "name")}"], 1)}"
   protocol                    = "${element(var.rules["${lookup(var.predefined_rules[count.index], "name")}"], 2)}"
-  source_port_ranges          = "${split(",", replace(  "${lookup(var.predefined_rules[count.index], "source_port_range", "*" )}"  ,  "*" , "0-65535" ) )}"
+  source_port_range           = "${lookup(var.predefined_rules[count.index], "source_port_range", "*" )}"
   destination_port_range      = "${element(var.rules["${lookup(var.predefined_rules[count.index], "name")}"], 4)}"
   description                 = "${element(var.rules["${lookup(var.predefined_rules[count.index], "name")}"], 5)}"
   source_address_prefix       = "${lookup(var.predefined_rules[count.index], "source_address_prefix", "*")}"
