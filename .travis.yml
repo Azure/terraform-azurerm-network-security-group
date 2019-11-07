@@ -13,7 +13,7 @@ services:
   - docker
 
 env:
-  - TERRAFORM_VERSION=0.12.4 IMAGE_NAME=azure-network-security-group-module
+  - TERRAFORM_VERSION=latest IMAGE_NAME=azure-network-security-group-module
 
 jobs:
   include:
