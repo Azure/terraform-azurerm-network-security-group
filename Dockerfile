@@ -1,5 +1,5 @@
 # Pull the base image with given version.
-ARG BUILD_TERRAFORM_VERSION="0.11.7"
+ARG BUILD_TERRAFORM_VERSION="0.12.10"
 FROM microsoft/terraform-test:${BUILD_TERRAFORM_VERSION}
 
 ARG MODULE_NAME="terraform-azurerm-network-security-group"
@@ -32,5 +32,7 @@ WORKDIR /go/src/${MODULE_NAME}
 ENV GOPATH /go
 ENV PATH /usr/local/go/bin:$GOPATH/bin:$PATH
 RUN /bin/bash -c "curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh"
+RUN /bin/bash -c "go get -v github.com/gruntwork-io/terratest/modules/terraform"
+RUN /bin/bash -c "go get -v github.com/gruntwork-io/terratest/modules/test-structure"
 
 RUN ["bundle", "install", "--gemfile", "./Gemfile"]
