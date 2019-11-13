@@ -21,7 +21,7 @@ variable "tags" {
 
 # Predefined rules   
 variable "predefined_rules" {
-  type    = any
+  type    = list(any)
   default = []
 }
 
@@ -30,7 +30,7 @@ variable "predefined_rules" {
 # All the fields are required.
 variable "custom_rules" {
   description = "Security rules for the network security group using this format name = [priority, direction, access, protocol, source_port_range, destination_port_range, source_address_prefix, destination_address_prefix, description]"
-  type        = any
+  type        = list(any)
   default     = []
 }
 
