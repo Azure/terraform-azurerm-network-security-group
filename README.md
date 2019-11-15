@@ -21,11 +21,11 @@ module "network-security-group" {
     resource_group_name        = "nsg-resource-group"
     location                   = "westus"
     security_group_name        = "nsg"
+    source_address_prefix      = ["10.0.3.0/24"]
     predefined_rules           = [
       {
         name                   = "SSH"
         priority               = "500"
-        source_address_prefix  = ["10.0.3.0/24"]
       },
       {
         name                   = "LDAP"
