@@ -21,7 +21,13 @@ variable "tags" {
 
 # Predefined rules   
 variable "predefined_rules" {
-  type    = list(any)
+  type = list(object({
+    name                       = string
+    priority                   = number
+    source_port_range          = string
+    source_address_prefix      = list(string)
+    destination_address_prefix = list(string)
+  }))
   default = []
 }
 
