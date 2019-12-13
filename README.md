@@ -2,6 +2,10 @@
 
 [![Build Status](https://travis-ci.org/Azure/terraform-azurerm-network-security-group.svg?branch=master)](https://travis-ci.org/Azure/terraform-azurerm-network-security-group)
 
+## Module version
+
+A new version v1.2.1 will be released to support the import of datasource ```azurerm-resource-group```
+
 ## Create a network security group
 
 This Terraform module deploys a Network Security Group (NSG) in Azure and optionally attach it to the specified vnets.
