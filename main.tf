@@ -45,7 +45,7 @@ resource "azurerm_network_security_rule" "custom_rules" {
   source_port_ranges          = split(",", replace(lookup(var.custom_rules[count.index], "source_port_range", "*"), "*", "0-65535"))
   destination_port_ranges     = split(",", replace(lookup(var.custom_rules[count.index], "destination_port_range", "*"), "*", "0-65535"))
   source_address_prefix       = lookup(var.custom_rules[count.index], "source_address_prefix", "*")
-  source_application_security_group_ids = lookup(var.custom_rules[count.index], "source_application_security_group_ids", null)
+  source_application_security_group_ids = split(",", lookup(var.custom_rules[count.index], "source_application_security_group_ids", ""))
   destination_address_prefix  = lookup(var.custom_rules[count.index], "destination_address_prefix", "*")
   description                 = lookup(var.custom_rules[count.index], "description", "Security rule for ${lookup(var.custom_rules[count.index], "name", "default_rule_name")}")
   resource_group_name         = var.resource_group_name
