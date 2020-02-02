@@ -4,6 +4,11 @@ variable "resource_group_name" {
   description = "Name of the resource group"
 }
 
+variable "resource_group_create" {
+  default     = true
+  description = "Set to false if your resource group already exists"
+}
+
 variable "location" {}
 
 variable "security_group_name" {
