@@ -1,6 +1,6 @@
 variable "rules" {
   description = "Standard set of predefined rules"
-  type        = "map"
+  type        = map(any)
 
   # [direction, access, protocol, source_port_range, destination_port_range, description]"
   # The following info are in the submodules: source_address_prefix, destination_address_prefix

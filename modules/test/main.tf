@@ -9,9 +9,9 @@ module "test-nsg" {
 }
 
 output "nsg_id" {
-  value = "${module.test-nsg.network_security_group_id}"
+  value = module.test-nsg.network_security_group_id
 }
 
 output "nsg_name" {
-  value = "${module.test-nsg.network_security_group_name}"
+  value = module.test-nsg.network_security_group_name
 }

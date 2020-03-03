@@ -16,37 +16,41 @@ This module includes a a set of pre-defined rules for commonly used protocols (f
 The following example demonstrate how to use the network-security-group module with a combination of predefined and custom rules.
 
 ```hcl
+resource "azurerm_resource_group" "test" {
+  name     = "my-resources"
+  location = "West Europe"
+}
+
 module "network-security-group" {
-    source                     = "Azure/network-security-group/azurerm"
-    resource_group_name        = "nsg-resource-group"
-    location                   = "westus"
-    security_group_name        = "nsg"
-    source_address_prefix      = ["10.0.3.0/24"]
-    predefined_rules           = [
-      {
-        name                   = "SSH"
-        priority               = "500"
-      },
-      {
-        name                   = "LDAP"
-        source_port_range      = "1024-1026"
-      }
-    ]
-    custom_rules               = [
-      {
-        name                   = "myhttp"
-        priority               = "200"
-        direction              = "Inbound"
-        access                 = "Allow"
-        protocol               = "tcp"
-        destination_port_range = "8080"
-        description            = "description-myhttp"
-      }
-    ]
-    tags                       = {
-                                   environment = "dev"
-                                   costcenter  = "it"
-                                 }
+  source                = "Azure/network-security-group/azurerm"
+  resource_group_name   = azurerm_resource_group.test.name
+  security_group_name   = "nsg"
+  source_address_prefix = ["10.0.3.0/24"]
+  predefined_rules = [
+    {
+      name     = "SSH"
+      priority = "500"
+    },
+    {
+      name              = "LDAP"
+      source_port_range = "1024-1026"
+    }
+  ]
+  custom_rules = [
+    {
+      name                   = "myhttp"
+      priority               = "200"
+      direction              = "Inbound"
+      access                 = "Allow"
+      protocol               = "tcp"
+      destination_port_range = "8080"
+      description            = "description-myhttp"
+    }
+  ]
+  tags = {
+    environment = "dev"
+    costcenter  = "it"
+  }
 }
 ```
 
@@ -55,27 +59,31 @@ module "network-security-group" {
 The following example demonstrate how to use the pre-defined HTTP module with a custom rule for ssh.
 
 ```hcl
+resource "azurerm_resource_group" "test" {
+  name     = "my-resources"
+  location = "West Europe"
+}
+
 module "network-security-group" {
-    source                     = "Azure/network-security-group/azurerm//modules/HTTP"
-    resource_group_name        = "nsg-resource-group"
-    location                   = "westus"
-    security_group_name        = "nsg"
-    custom_rules               = [
-      {
-        name                   = "ssh"
-        priority               = "200"
-        direction              = "Inbound"
-        access                 = "Allow"
-        protocol               = "tcp"
-        destination_port_range = "22"
-        source_address_prefix  = ["VirtualNetwork"]
-        description            = "ssh-for-vm-management"
-      }
-    ]
-    tags                       = {
-                                  environment = "dev"
-                                  costcenter  = "it"
-                                 }
+  source              = "Azure/network-security-group/azurerm//modules/HTTP"
+  resource_group_name = azurerm_resource_group.test.name
+  security_group_name = "nsg"
+  custom_rules = [
+    {
+      name                   = "ssh"
+      priority               = "200"
+      direction              = "Inbound"
+      access                 = "Allow"
+      protocol               = "tcp"
+      destination_port_range = "22"
+      source_address_prefix  = ["VirtualNetwork"]
+      description            = "ssh-for-vm-management"
+    }
+  ]
+  tags = {
+    environment = "dev"
+    costcenter  = "it"
+  }
 }
 ```
 
