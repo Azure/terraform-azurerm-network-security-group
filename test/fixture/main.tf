@@ -1,5 +1,14 @@
+provider "azurerm" {
+  features {}
+}
+
 resource "random_id" "randomize" {
   byte_length = 8
+}
+
+resource "azurerm_resource_group" "test" {
+  name     = "test-resources-${random_id.randomize.hex}"
+  location = "West Europe"
 }
 
 ########################################################
@@ -7,31 +16,27 @@ resource "random_id" "randomize" {
 ########################################################
 module "testPredefinedHTTP" {
   source              = "../../modules/HTTP/"
-  resource_group_name = "${random_id.randomize.hex}"
-  location            = "${var.location}"
+  resource_group_name = azurerm_resource_group.test.name
   security_group_name = "nsg_testPredefinedHTTP"
 }
 
 module "testPredefinedAD" {
   source              = "../../modules/ActiveDirectory/"
-  resource_group_name = "${random_id.randomize.hex}"
-  location            = "${var.location}"
+  resource_group_name = azurerm_resource_group.test.name
   security_group_name = "nsg_testPredefinedAD"
 }
 
 module "testPredefinedRuleWithCustom" {
   source              = "../../"
-  resource_group_name = "${random_id.randomize.hex}"
-  location            = "${var.location}"
+  resource_group_name = azurerm_resource_group.test.name
   security_group_name = "nsg_testPredefinedWithCustom"
-  custom_rules        = "${var.custom_rules}"
-  predefined_rules    = "${var.predefined_rules}"
+  custom_rules        = var.custom_rules
+  predefined_rules    = var.predefined_rules
 }
 
 module "testCustom" {
   source              = "../../"
-  resource_group_name = "${random_id.randomize.hex}"
-  location            = "${var.location}"
+  resource_group_name = azurerm_resource_group.test.name
   security_group_name = "nsg_testCustom"
-  custom_rules        = "${var.custom_rules}"
+  custom_rules        = var.custom_rules
 }
