@@ -76,7 +76,7 @@ module "network-security-group" {
       access                 = "Allow"
       protocol               = "tcp"
       destination_port_range = "22"
-      source_address_prefix  = ["VirtualNetwork"]
+      source_address_prefix  = "VirtualNetwork"
       description            = "ssh-for-vm-management"
     }
   ]
