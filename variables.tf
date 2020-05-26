@@ -14,6 +14,12 @@ variable "tags" {
   default     = {}
 }
 
+variable "location" {
+  description = "Location (Azure Region) for the network security group."
+  # No default - if it's not specified, use the resource group location (see main.tf)
+  default = ""
+}
+
 # Security Rules definition 
 
 # Predefined rules   

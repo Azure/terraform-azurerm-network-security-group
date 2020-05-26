@@ -24,6 +24,7 @@ resource "azurerm_resource_group" "test" {
 module "network-security-group" {
   source                = "Azure/network-security-group/azurerm"
   resource_group_name   = azurerm_resource_group.test.name
+  location              = "EastUS" # Optional; if not provided, will use Resource Group location
   security_group_name   = "nsg"
   source_address_prefix = ["10.0.3.0/24"]
   predefined_rules = [

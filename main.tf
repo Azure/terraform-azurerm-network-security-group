@@ -4,7 +4,7 @@ data "azurerm_resource_group" "nsg" {
 
 resource "azurerm_network_security_group" "nsg" {
   name                = var.security_group_name
-  location            = data.azurerm_resource_group.nsg.location
+  location            = var.location != "" ? var.location : data.azurerm_resource_group.nsg.location
   resource_group_name = data.azurerm_resource_group.nsg.name
   tags                = var.tags
 }
