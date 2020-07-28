@@ -52,3 +52,13 @@ variable "destination_address_prefix" {
 
   # Example ["10.0.3.0/32","10.0.3.128/32"] or ["VirtualNetwork"] 
 }
+
+variable "source_application_security_group_ids" {
+  type    = set(string)
+  default = []
+}
+
+variable "destination_application_security_group_ids" {
+  type    = set(string)
+  default = []
+}
