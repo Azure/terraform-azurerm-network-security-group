@@ -27,16 +27,32 @@ module "testPredefinedAD" {
 }
 
 module "testPredefinedRuleWithCustom" {
-  source              = "../../"
+  source                                     = "../../"
+  resource_group_name                        = azurerm_resource_group.test.name
+  security_group_name                        = "nsg_testPredefinedWithCustom"
+  custom_rules                               = var.custom_rules
+  predefined_rules                           = var.predefined_rules
+  source_application_security_group_ids      = [azurerm_application_security_group.first.id]
+  destination_application_security_group_ids = [azurerm_application_security_group.second.id]
+}
+
+resource "azurerm_application_security_group" "first" {
+  name                = "acctest-first"
+  location            = azurerm_resource_group.test.location
   resource_group_name = azurerm_resource_group.test.name
-  security_group_name = "nsg_testPredefinedWithCustom"
-  custom_rules        = var.custom_rules
-  predefined_rules    = var.predefined_rules
+}
+
+resource "azurerm_application_security_group" "second" {
+  name                = "acctest-second"
+  location            = azurerm_resource_group.test.location
+  resource_group_name = azurerm_resource_group.test.name
 }
 
 module "testCustom" {
-  source              = "../../"
-  resource_group_name = azurerm_resource_group.test.name
-  security_group_name = "nsg_testCustom"
-  custom_rules        = var.custom_rules
+  source                                     = "../../"
+  resource_group_name                        = azurerm_resource_group.test.name
+  security_group_name                        = "nsg_testCustom"
+  custom_rules                               = var.custom_rules
+  source_application_security_group_ids      = [azurerm_application_security_group.first.id]
+  destination_application_security_group_ids = [azurerm_application_security_group.second.id]
 }

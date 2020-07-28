@@ -21,12 +21,19 @@ resource "azurerm_resource_group" "test" {
   location = "West Europe"
 }
 
+resource "azurerm_application_security_group" "first" {
+  name                = "nsg-first"
+  location            = azurerm_resource_group.test.location
+  resource_group_name = azurerm_resource_group.test.name
+}
+
 module "network-security-group" {
-  source                = "Azure/network-security-group/azurerm"
-  resource_group_name   = azurerm_resource_group.test.name
-  location              = "EastUS" # Optional; if not provided, will use Resource Group location
-  security_group_name   = "nsg"
-  source_address_prefix = ["10.0.3.0/24"]
+  source                                = "Azure/network-security-group/azurerm"
+  resource_group_name                   = azurerm_resource_group.test.name
+  location                              = "EastUS" # Optional; if not provided, will use Resource Group location
+  security_group_name                   = "nsg"
+  source_address_prefix                 = ["10.0.3.0/24"]
+  source_application_security_group_ids = [azurerm_application_security_group.first.id]
   predefined_rules = [
     {
       name     = "SSH"
