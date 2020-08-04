@@ -37,10 +37,8 @@ resource "azurerm_application_security_group" "second" {
   resource_group_name = azurerm_resource_group.example.name
 }
 
-
-
 module "network-security-group" {
-  source              = "../"
+  source              = "Azure/network-security-group/azurerm"
   resource_group_name = azurerm_resource_group.example.name
   location            = "eastus"
   security_group_name = "nsg"
@@ -55,6 +53,7 @@ module "network-security-group" {
       source_port_range = "1024-1026"
     }
   ]
+
   custom_rules = [
     {
       name                                       = "myhttp"
@@ -113,7 +112,7 @@ module "network-security-group" {
 
 - [Configure Terraform for Azure](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/terraform-install-configure)
 
-We provide 2 ways to build, run, and example the module on a local development machine.  [Native (Mac/Linux)](#native-maclinux) or [Docker](#docker).
+We provide 2 ways to build, run, and test the module on a local development machine.  [Native (Mac/Linux)](#native-maclinux) or [Docker](#docker).
 
 ### Native (Mac/Linux)
 
@@ -132,7 +131,7 @@ We provide simple script to quickly set up module development environment:
 $ curl -sSL https://raw.githubusercontent.com/Azure/terramodtest/master/tool/env_setup.sh | sudo bash
 ```
 
-#### Run example
+#### Run test
 
 Then simply run it in local shell:
 
@@ -145,7 +144,7 @@ $ rake full
 
 ### Docker
 
-We provide a Dockerfile to build a new image based `FROM` the `microsoft/terraform-example` Docker hub image which adds additional tools / packages specific for this module (see Custom Image section).  Alternatively use only the `microsoft/terraform-example` Docker hub image [by using these instructions](https://github.com/Azure/terraform-example).
+We provide a Dockerfile to build a new image based `FROM` the `mcr.microsoft.com/terraform-test` Docker hub image which adds additional tools / packages specific for this module (see Custom Image section).  Alternatively use only the `mcr.microsoft.com/terraform-test` Docker hub image [by using these instructions](https://github.com/Azure/terraform-test).
 
 #### Prerequisites
 
