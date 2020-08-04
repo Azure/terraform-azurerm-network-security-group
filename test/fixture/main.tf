@@ -26,16 +26,6 @@ module "testPredefinedAD" {
   security_group_name = "nsg_testPredefinedAD"
 }
 
-module "testPredefinedRuleWithCustom" {
-  source                                     = "../../"
-  resource_group_name                        = azurerm_resource_group.test.name
-  security_group_name                        = "nsg_testPredefinedWithCustom"
-  custom_rules                               = var.custom_rules
-  predefined_rules                           = var.predefined_rules
-  source_application_security_group_ids      = [azurerm_application_security_group.first.id]
-  destination_application_security_group_ids = [azurerm_application_security_group.second.id]
-}
-
 resource "azurerm_application_security_group" "first" {
   name                = "acctest-first"
   location            = azurerm_resource_group.test.location
@@ -48,11 +38,54 @@ resource "azurerm_application_security_group" "second" {
   resource_group_name = azurerm_resource_group.test.name
 }
 
+module "testPredefinedRuleWithCustom" {
+  source              = "../../"
+  resource_group_name = azurerm_resource_group.test.name
+  security_group_name = "nsg_testPredefinedWithCustom"
+  predefined_rules = [
+    {
+      name                                  = "HTTP"
+      priority                              = 300
+      source_application_security_group_ids = [azurerm_application_security_group.first.id]
+    },
+    {
+      name                                  = "HTTPS"
+      priority                              = 510
+      source_application_security_group_ids = []
+    },
+  ]
+}
+
+
+
 module "testCustom" {
-  source                                     = "../../"
-  resource_group_name                        = azurerm_resource_group.test.name
-  security_group_name                        = "nsg_testCustom"
-  custom_rules                               = var.custom_rules
-  source_application_security_group_ids      = [azurerm_application_security_group.first.id]
-  destination_application_security_group_ids = [azurerm_application_security_group.second.id]
+  source              = "../../"
+  resource_group_name = azurerm_resource_group.test.name
+  security_group_name = "nsg_testCustom"
+  custom_rules = [
+    {
+      name                                       = "myssh"
+      priority                                   = "500"
+      direction                                  = "Inbound"
+      access                                     = "Allow"
+      protocol                                   = "tcp"
+      source_port_range                          = "1234"
+      destination_port_range                     = "22"
+      description                                = "description-myssh"
+      source_application_security_group_ids      = [azurerm_application_security_group.first.id]
+      destination_application_security_group_ids = []
+    },
+    {
+      name                                       = "myhttp"
+      priority                                   = "200"
+      direction                                  = "Inbound"
+      access                                     = "Allow"
+      protocol                                   = "tcp"
+      source_port_range                          = "666,4096-4098"
+      destination_port_range                     = "8080"
+      description                                = "description-http"
+      source_application_security_group_ids      = []
+      destination_application_security_group_ids = [azurerm_application_security_group.second.id]
+    },
+  ]
 }
