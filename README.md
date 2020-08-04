@@ -106,7 +106,7 @@ module "network-security-group" {
 }
 ```
 
-## example
+## Test
 
 ### Configurations
 
