@@ -45,13 +45,11 @@ module "testPredefinedRuleWithCustom" {
   predefined_rules = [
     {
       name                                  = "HTTP"
-      priority                              = 300
       source_application_security_group_ids = [azurerm_application_security_group.first.id]
     },
     {
-      name                                  = "HTTPS"
-      priority                              = 510
-      source_application_security_group_ids = []
+      name     = "HTTPS"
+      priority = 510
     },
   ]
 }
@@ -64,27 +62,25 @@ module "testCustom" {
   security_group_name = "nsg_testCustom"
   custom_rules = [
     {
-      name                                       = "myssh"
-      priority                                   = "500"
-      direction                                  = "Inbound"
-      access                                     = "Allow"
-      protocol                                   = "tcp"
-      source_port_range                          = "1234"
-      destination_port_range                     = "22"
-      description                                = "description-myssh"
-      source_application_security_group_ids      = [azurerm_application_security_group.first.id]
-      destination_application_security_group_ids = []
+      name                                  = "myssh"
+      priority                              = 201
+      direction                             = "Inbound"
+      access                                = "Allow"
+      protocol                              = "tcp"
+      source_port_range                     = "*"
+      destination_port_range                = "22"
+      description                           = "description-myssh"
+      source_application_security_group_ids = [azurerm_application_security_group.first.id]
     },
     {
       name                                       = "myhttp"
-      priority                                   = "200"
+      priority                                   = 200
       direction                                  = "Inbound"
       access                                     = "Allow"
       protocol                                   = "tcp"
-      source_port_range                          = "666,4096-4098"
+      source_port_range                          = "*"
       destination_port_range                     = "8080"
       description                                = "description-http"
-      source_application_security_group_ids      = []
       destination_application_security_group_ids = [azurerm_application_security_group.second.id]
     },
   ]

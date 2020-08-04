@@ -16,28 +16,39 @@ This module includes a a set of pre-defined rules for commonly used protocols (f
 The following example demonstrate how to use the network-security-group module with a combination of predefined and custom rules.
 
 ```hcl
-resource "azurerm_resource_group" "test" {
+provider "azurerm" {
+  features {}
+}
+
+resource "azurerm_resource_group" "example" {
   name     = "my-resources"
   location = "West Europe"
 }
 
 resource "azurerm_application_security_group" "first" {
-  name                = "nsg-first"
-  location            = azurerm_resource_group.test.location
-  resource_group_name = azurerm_resource_group.test.name
+  name                = "asg-first"
+  location            = "eastus"
+  resource_group_name = azurerm_resource_group.example.name
 }
 
+resource "azurerm_application_security_group" "second" {
+  name                = "asg-second"
+  location            = "eastus"
+  resource_group_name = azurerm_resource_group.example.name
+}
+
+
+
 module "network-security-group" {
-  source                                = "Azure/network-security-group/azurerm"
-  resource_group_name                   = azurerm_resource_group.test.name
-  location                              = "EastUS" # Optional; if not provided, will use Resource Group location
-  security_group_name                   = "nsg"
-  source_address_prefix                 = ["10.0.3.0/24"]
-  source_application_security_group_ids = [azurerm_application_security_group.first.id]
+  source              = "../"
+  resource_group_name = azurerm_resource_group.example.name
+  location            = "eastus"
+  security_group_name = "nsg"
   predefined_rules = [
     {
-      name     = "SSH"
-      priority = "500"
+      name                                  = "SSH"
+      priority                              = "500"
+      source_application_security_group_ids = [azurerm_application_security_group.first.id]
     },
     {
       name              = "LDAP"
@@ -46,13 +57,14 @@ module "network-security-group" {
   ]
   custom_rules = [
     {
-      name                   = "myhttp"
-      priority               = "200"
-      direction              = "Inbound"
-      access                 = "Allow"
-      protocol               = "tcp"
-      destination_port_range = "8080"
-      description            = "description-myhttp"
+      name                                       = "myhttp"
+      priority                                   = "200"
+      direction                                  = "Inbound"
+      access                                     = "Allow"
+      protocol                                   = "tcp"
+      destination_port_range                     = "8080"
+      description                                = "description-myhttp"
+      destination_application_security_group_ids = [azurerm_application_security_group.second.id]
     }
   ]
   tags = {
@@ -67,14 +79,14 @@ module "network-security-group" {
 The following example demonstrate how to use the pre-defined HTTP module with a custom rule for ssh.
 
 ```hcl
-resource "azurerm_resource_group" "test" {
+resource "azurerm_resource_group" "example" {
   name     = "my-resources"
   location = "West Europe"
 }
 
 module "network-security-group" {
   source              = "Azure/network-security-group/azurerm//modules/HTTP"
-  resource_group_name = azurerm_resource_group.test.name
+  resource_group_name = azurerm_resource_group.example.name
   security_group_name = "nsg"
   custom_rules = [
     {
@@ -95,13 +107,13 @@ module "network-security-group" {
 }
 ```
 
-## Test
+## example
 
 ### Configurations
 
 - [Configure Terraform for Azure](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/terraform-install-configure)
 
-We provide 2 ways to build, run, and test the module on a local development machine.  [Native (Mac/Linux)](#native-maclinux) or [Docker](#docker).
+We provide 2 ways to build, run, and example the module on a local development machine.  [Native (Mac/Linux)](#native-maclinux) or [Docker](#docker).
 
 ### Native (Mac/Linux)
 
@@ -120,7 +132,7 @@ We provide simple script to quickly set up module development environment:
 $ curl -sSL https://raw.githubusercontent.com/Azure/terramodtest/master/tool/env_setup.sh | sudo bash
 ```
 
-#### Run test
+#### Run example
 
 Then simply run it in local shell:
 
@@ -133,7 +145,7 @@ $ rake full
 
 ### Docker
 
-We provide a Dockerfile to build a new image based `FROM` the `microsoft/terraform-test` Docker hub image which adds additional tools / packages specific for this module (see Custom Image section).  Alternatively use only the `microsoft/terraform-test` Docker hub image [by using these instructions](https://github.com/Azure/terraform-test).
+We provide a Dockerfile to build a new image based `FROM` the `microsoft/terraform-example` Docker hub image which adds additional tools / packages specific for this module (see Custom Image section).  Alternatively use only the `microsoft/terraform-example` Docker hub image [by using these instructions](https://github.com/Azure/terraform-example).
 
 #### Prerequisites
 
