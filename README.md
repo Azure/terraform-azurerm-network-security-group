@@ -16,14 +16,18 @@ This module includes a a set of pre-defined rules for commonly used protocols (f
 The following example demonstrate how to use the network-security-group module with a combination of predefined and custom rules.
 
 ```hcl
-resource "azurerm_resource_group" "test" {
+provider "azurerm" {
+  features {}
+}
+
+resource "azurerm_resource_group" "example" {
   name     = "my-resources"
   location = "West Europe"
 }
 
 module "network-security-group" {
   source                = "Azure/network-security-group/azurerm"
-  resource_group_name   = azurerm_resource_group.test.name
+  resource_group_name   = azurerm_resource_group.example.name
   location              = "EastUS" # Optional; if not provided, will use Resource Group location
   security_group_name   = "nsg"
   source_address_prefix = ["10.0.3.0/24"]
@@ -37,6 +41,7 @@ module "network-security-group" {
       source_port_range = "1024-1026"
     }
   ]
+
   custom_rules = [
     {
       name                   = "myhttp"
@@ -46,6 +51,65 @@ module "network-security-group" {
       protocol               = "tcp"
       destination_port_range = "8080"
       description            = "description-myhttp"
+    }
+  ]
+
+  tags = {
+    environment = "dev"
+    costcenter  = "it"
+  }
+}
+```
+
+## Usage with the Application Security Group module
+
+The following example demonstrate how to use the network-security-group module with a combination of predefined and custom rules with ASG source or destination.
+
+```hcl
+provider "azurerm" {
+  features {}
+}
+
+resource "azurerm_resource_group" "example" {
+  name     = "my-resources"
+  location = "West Europe"
+}
+
+resource "azurerm_application_security_group" "first" {
+  name                = "asg-first"
+  location            = "eastus"
+  resource_group_name = azurerm_resource_group.example.name
+}
+
+resource "azurerm_application_security_group" "second" {
+  name                = "asg-second"
+  location            = "eastus"
+  resource_group_name = azurerm_resource_group.example.name
+}
+
+module "network-security-group" {
+  source              = "Azure/network-security-group/azurerm"
+  resource_group_name = azurerm_resource_group.example.name
+  location            = "eastus"
+  security_group_name = "nsg"
+  predefined_rules = [
+    {
+      name                                  = "SSH"
+      priority                              = "500"
+      source_application_security_group_ids = [azurerm_application_security_group.first.id]
+    }
+  ]
+
+  custom_rules = [
+    {
+      name                                       = "myhttp"
+      priority                                   = "200"
+      direction                                  = "Inbound"
+      access                                     = "Allow"
+      protocol                                   = "tcp"
+      destination_port_range                     = "8080"
+      description                                = "description-myhttp"
+      destination_application_security_group_ids = [azurerm_application_security_group.second.id]
     }
   ]
   tags = {
@@ -60,14 +124,14 @@ module "network-security-group" {
 The following example demonstrate how to use the pre-defined HTTP module with a custom rule for ssh.
 
 ```hcl
-resource "azurerm_resource_group" "test" {
+resource "azurerm_resource_group" "example" {
   name     = "my-resources"
   location = "West Europe"
 }
 
 module "network-security-group" {
   source              = "Azure/network-security-group/azurerm//modules/HTTP"
-  resource_group_name = azurerm_resource_group.test.name
+  resource_group_name = azurerm_resource_group.example.name
   security_group_name = "nsg"
   custom_rules = [
     {
@@ -126,7 +190,7 @@ $ rake full
 
 ### Docker
 
-We provide a Dockerfile to build a new image based `FROM` the `microsoft/terraform-test` Docker hub image which adds additional tools / packages specific for this module (see Custom Image section).  Alternatively use only the `microsoft/terraform-test` Docker hub image [by using these instructions](https://github.com/Azure/terraform-test).
+We provide a Dockerfile to build a new image based `FROM` the `mcr.microsoft.com/terraform-test` Docker hub image which adds additional tools / packages specific for this module (see Custom Image section).  Alternatively use only the `mcr.microsoft.com/terraform-test` Docker hub image [by using these instructions](https://github.com/Azure/terraform-test).
 
 #### Prerequisites
 

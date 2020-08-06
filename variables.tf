@@ -24,7 +24,7 @@ variable "location" {
 
 # Predefined rules   
 variable "predefined_rules" {
-  type    = list(any)
+  type    = any
   default = []
 }
 
@@ -33,7 +33,7 @@ variable "predefined_rules" {
 # All the fields are required.
 variable "custom_rules" {
   description = "Security rules for the network security group using this format name = [priority, direction, access, protocol, source_port_range, destination_port_range, source_address_prefix, destination_address_prefix, description]"
-  type        = list(any)
+  type        = any
   default     = []
 }
 
@@ -51,4 +51,16 @@ variable "destination_address_prefix" {
   default = ["*"]
 
   # Example ["10.0.3.0/32","10.0.3.128/32"] or ["VirtualNetwork"] 
+}
+
+variable "source_application_security_group_ids" {
+  description = "(Optional) A List of source Application Security Group IDs. Conflicted with `source_address_prefix`. Once assigned with `source_address_prefix`, it'll have a higher priority."
+  type        = set(string)
+  default     = []
+}
+
+variable "destination_application_security_group_ids" {
+  description = "(Optional) A List of destination Application Security Group IDs. Conflicted with `destination_address_prefix`. Once assigned with `destination_address_prefix`, it'll have a higher priority."
+  type        = set(string)
+  default     = []
 }
