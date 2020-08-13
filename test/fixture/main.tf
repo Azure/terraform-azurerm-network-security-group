@@ -18,12 +18,16 @@ module "testPredefinedHTTP" {
   source              = "../../modules/HTTP/"
   resource_group_name = azurerm_resource_group.test.name
   security_group_name = "nsg_testPredefinedHTTP"
+
+  depends_on = [azurerm_resource_group.test]
 }
 
 module "testPredefinedAD" {
   source              = "../../modules/ActiveDirectory/"
   resource_group_name = azurerm_resource_group.test.name
   security_group_name = "nsg_testPredefinedAD"
+
+  depends_on = [azurerm_resource_group.test]
 }
 
 resource "azurerm_application_security_group" "first" {
@@ -52,6 +56,8 @@ module "testPredefinedRuleWithCustom" {
       priority = 510
     },
   ]
+
+  depends_on = [azurerm_resource_group.test]
 }
 
 
@@ -84,4 +90,6 @@ module "testCustom" {
       destination_application_security_group_ids = [azurerm_application_security_group.second.id]
     },
   ]
+
+  depends_on = [azurerm_resource_group.test]
 }

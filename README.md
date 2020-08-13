@@ -11,7 +11,7 @@ NOTE: We are working on adding the support for applying a NSG to a network inter
 
 This module includes a a set of pre-defined rules for commonly used protocols (for example HTTP or ActiveDirectory) that can be used directly in their corresponding modules or as independent rules.
 
-## Usage with the generic module
+## Usage with the generic module in Terraform 0.13
 
 The following example demonstrate how to use the network-security-group module with a combination of predefined and custom rules.
 
@@ -58,10 +58,63 @@ module "network-security-group" {
     environment = "dev"
     costcenter  = "it"
   }
+
+  depends_on = [azurerm_resource_group.example]
 }
 ```
 
-## Usage with the Application Security Group module
+## Usage with the generic module in Terraform 0.12
+
+The following example demonstrate how to use the network-security-group module with a combination of predefined and custom rules.
+
+```hcl
+provider "azurerm" {
+  features {}
+}
+
+resource "azurerm_resource_group" "example" {
+  name     = "my-resources"
+  location = "West Europe"
+}
+
+module "network-security-group" {
+  source                = "Azure/network-security-group/azurerm"
+  version               = "3.1.1"
+  resource_group_name   = azurerm_resource_group.example.name
+  location              = "EastUS" # Optional; if not provided, will use Resource Group location
+  security_group_name   = "nsg"
+  source_address_prefix = ["10.0.3.0/24"]
+  predefined_rules = [
+    {
+      name     = "SSH"
+      priority = "500"
+    },
+    {
+      name              = "LDAP"
+      source_port_range = "1024-1026"
+    }
+  ]
+
+  custom_rules = [
+    {
+      name                   = "myhttp"
+      priority               = "200"
+      direction              = "Inbound"
+      access                 = "Allow"
+      protocol               = "tcp"
+      destination_port_range = "8080"
+      description            = "description-myhttp"
+    }
+  ]
+
+  tags = {
+    environment = "dev"
+    costcenter  = "it"
+  }
+}
+```
+
+## Usage with the Application Security Group module in Terraform 0.12
 
 The following example demonstrate how to use the network-security-group module with a combination of predefined and custom rules with ASG source or destination.
 
@@ -89,6 +142,7 @@ resource "azurerm_application_security_group" "second" {
 
 module "network-security-group" {
   source              = "Azure/network-security-group/azurerm"
+  version             = "3.1.1"
   resource_group_name = azurerm_resource_group.example.name
   location            = "eastus"
   security_group_name = "nsg"
@@ -119,7 +173,7 @@ module "network-security-group" {
 }
 ```
 
-## Usage with the pre-defined module
+## Usage with the pre-defined module in Terraform 0.12
 
 The following example demonstrate how to use the pre-defined HTTP module with a custom rule for ssh.
 
@@ -131,6 +185,7 @@ resource "azurerm_resource_group" "example" {
 
 module "network-security-group" {
   source              = "Azure/network-security-group/azurerm//modules/HTTP"
+  version             = "3.1.1"
   resource_group_name = azurerm_resource_group.example.name
   security_group_name = "nsg"
   custom_rules = [
