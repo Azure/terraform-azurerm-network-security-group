@@ -79,7 +79,6 @@ resource "azurerm_resource_group" "example" {
 
 module "network-security-group" {
   source                = "Azure/network-security-group/azurerm"
-  version               = "3.1.1"
   resource_group_name   = azurerm_resource_group.example.name
   location              = "EastUS" # Optional; if not provided, will use Resource Group location
   security_group_name   = "nsg"
@@ -142,7 +141,6 @@ resource "azurerm_application_security_group" "second" {
 
 module "network-security-group" {
   source              = "Azure/network-security-group/azurerm"
-  version             = "3.1.1"
   resource_group_name = azurerm_resource_group.example.name
   location            = "eastus"
   security_group_name = "nsg"
@@ -185,7 +183,6 @@ resource "azurerm_resource_group" "example" {
 
 module "network-security-group" {
   source              = "Azure/network-security-group/azurerm//modules/HTTP"
-  version             = "3.1.1"
   resource_group_name = azurerm_resource_group.example.name
   security_group_name = "nsg"
   custom_rules = [
