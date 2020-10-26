@@ -23,8 +23,8 @@ resource "azurerm_network_security_rule" "predefined_rules" {
   source_port_ranges                         = split(",", replace(lookup(var.predefined_rules[count.index], "source_port_range", "*"), "*", "0-65535"))
   destination_port_range                     = element(var.rules[lookup(var.predefined_rules[count.index], "name")], 4)
   description                                = element(var.rules[lookup(var.predefined_rules[count.index], "name")], 5)
-  source_address_prefix                      = length(lookup(var.predefined_rules[count.index], "source_application_security_group_ids", [])) == 0 ? join(",", var.source_address_prefix) : ""
-  destination_address_prefix                 = length(lookup(var.predefined_rules[count.index], "destination_application_security_group_ids", [])) == 0 ? join(",", var.destination_address_prefix) : ""
+  source_address_prefix                      = length(lookup(var.predefined_rules[count.index], "source_application_security_group_ids", [])) == 0 ? lookup(var.predefined_rules[count.index], "source_address_prefix", "*") : ""
+  destination_address_prefix                 = length(lookup(var.predefined_rules[count.index], "destination_application_security_group_ids", [])) == 0 ? lookup(var.predefined_rules[count.index], "destination_address_prefix", "*") : ""
   resource_group_name                        = data.azurerm_resource_group.nsg.name
   network_security_group_name                = azurerm_network_security_group.nsg.name
   source_application_security_group_ids      = lookup(var.predefined_rules[count.index], "source_application_security_group_ids", [])
