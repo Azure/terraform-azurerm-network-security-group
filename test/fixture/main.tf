@@ -64,7 +64,7 @@ module "testPredefinedRuleWithPrefix" {
   source                = "../../"
   resource_group_name   = azurerm_resource_group.test.name
   security_group_name   = "nsg_${random_id.randomize.hex}testPredefinedWithPrefix"
-  source_address_prefix = "VirtualNetwork"
+  source_address_prefix = ["VirtualNetwork"]
   predefined_rules = [
     {
       name = "HTTP"
