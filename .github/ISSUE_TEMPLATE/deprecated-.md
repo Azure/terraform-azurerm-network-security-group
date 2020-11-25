@@ -1,5 +1,5 @@
 ---
-name: 'Deprecated:'
+name: 'Deprecated fields/ block:'
 about: Describe this issue template's purpose here.
 title: ''
 labels: ''
