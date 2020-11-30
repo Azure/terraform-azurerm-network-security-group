@@ -60,6 +60,42 @@ module "testPredefinedRuleWithCustom" {
   depends_on = [azurerm_resource_group.test]
 }
 
+module "testPredefinedRuleWithPrefix" {
+  source                = "../../"
+  resource_group_name   = azurerm_resource_group.test.name
+  security_group_name   = "nsg_${random_id.randomize.hex}testPredefinedWithPrefix"
+  source_address_prefix = ["VirtualNetwork"]
+  predefined_rules = [
+    {
+      name = "HTTP"
+    },
+    {
+      name     = "HTTPS"
+      priority = 510
+    },
+  ]
+
+  depends_on = [azurerm_resource_group.test]
+}
+
+module "testPredefinedRuleWithPrefixes" {
+  source                  = "../../"
+  resource_group_name     = azurerm_resource_group.test.name
+  security_group_name     = "nsg_${random_id.randomize.hex}testPredefinedWithPrefixes"
+  source_address_prefixes = ["10.151.0.0/24", "10.151.1.0/24"]
+  predefined_rules = [
+    {
+      name = "HTTP"
+    },
+    {
+      name     = "HTTPS"
+      priority = 510
+    },
+  ]
+
+  depends_on = [azurerm_resource_group.test]
+}
+
 
 
 module "testCustom" {
@@ -93,3 +129,37 @@ module "testCustom" {
 
   depends_on = [azurerm_resource_group.test]
 }
+
+module "testCustomPrefix" {
+  source              = "../../"
+  resource_group_name = azurerm_resource_group.test.name
+  security_group_name = "nsg_${random_id.randomize.hex}testCustomPrefix"
+  custom_rules = [
+    {
+      name                   = "myssh"
+      priority               = 201
+      direction              = "Inbound"
+      access                 = "Allow"
+      protocol               = "tcp"
+      source_port_range      = "*"
+      destination_port_range = "22"
+      source_address_prefix  = "10.151.0.0/24"
+      description            = "description-myssh"
+    },
+    {
+      name                                       = "myhttp"
+      priority                                   = 200
+      direction                                  = "Inbound"
+      access                                     = "Allow"
+      protocol                                   = "tcp"
+      source_port_range                          = "*"
+      destination_port_range                     = "8080"
+      source_address_prefixes                    = ["10.151.0.0/24", "10.151.1.0/24"]
+      description                                = "description-http"
+      destination_application_security_group_ids = [azurerm_application_security_group.second.id]
+    },
+  ]
+
+  depends_on = [azurerm_resource_group.test]
+}
+
