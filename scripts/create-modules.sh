@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This script generates the specialized modules based on the content of rules.tf file.
+# This script generates the specialized examples based on the content of rules.tf file.
 
 MODULE_NAME=""
 
@@ -19,7 +19,7 @@ while read -r LINE
          # Create directory if does not exist
          mkdir "../modules/$MODULE_NAME"
       fi 
-      cp ../modules/_template/* "../modules/$MODULE_NAME/"
+      cp ../examples/_template/* "../modules/$MODULE_NAME/"
       continue
     fi 
 
@@ -30,7 +30,7 @@ while read -r LINE
                {\
                    name = \"'"$RULE_NAME"'\"\
                },\
-               ' ../modules/$MODULE_NAME/main.tf
+               ' ../examples/$MODULE_NAME/main.tf
    
     fi
 

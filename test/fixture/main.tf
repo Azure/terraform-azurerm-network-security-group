@@ -15,7 +15,7 @@ resource "azurerm_resource_group" "test" {
 # Using a pre-defined rule for http.  Create a network security group that restricts access to port 80 inbound.  No restrictions on source address/port.
 ########################################################
 module "testPredefinedHTTP" {
-  source              = "../../modules/HTTP/"
+  source              = "../../examples/HTTP/"
   resource_group_name = azurerm_resource_group.test.name
   security_group_name = "nsg_testPredefinedHTTP"
 
@@ -23,7 +23,7 @@ module "testPredefinedHTTP" {
 }
 
 module "testPredefinedAD" {
-  source              = "../../modules/ActiveDirectory/"
+  source              = "../../examples/ActiveDirectory/"
   resource_group_name = azurerm_resource_group.test.name
   security_group_name = "nsg_testPredefinedAD"
 
