@@ -1,6 +1,0 @@
-{
-  "retryable_errors": [
-    "GatewayTimeout",
-    "StatusCode=504.*context deadline exceeded"
-  ]
-}
