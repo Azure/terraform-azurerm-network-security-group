@@ -49,6 +49,6 @@ variable "destination_address_prefix" {
 }
 
 variable "location" {
-  type = string
+  type    = string
   default = "westus"
 }
