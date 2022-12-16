@@ -49,3 +49,8 @@ Gemfile.lock
 tfmod-scaffold/
 scripts
 test/go.sum
+
+**/.terraform.lock.hcl
+.terraform.lock.hcl
+
+README-generated.md
