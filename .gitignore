@@ -47,3 +47,5 @@ Gemfile.lock
 .tflint_example.hcl
 
 tfmod-scaffold/
+scripts
+test/go.sum

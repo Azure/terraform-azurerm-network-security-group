@@ -15,7 +15,7 @@ resource "azurerm_resource_group" "test" {
 # Using a pre-defined rule for http.  Create a network security group that restricts access to port 80 inbound.  No restrictions on source address/port.
 ########################################################
 module "testPredefinedHTTP" {
-  source              = "../../examples/HTTP/"
+  source              = "../HTTP"
   resource_group_name = azurerm_resource_group.test.name
   security_group_name = "nsg_testPredefinedHTTP"
 
@@ -23,7 +23,7 @@ module "testPredefinedHTTP" {
 }
 
 module "testPredefinedAD" {
-  source              = "../../examples/ActiveDirectory/"
+  source              = "../ActiveDirectory"
   resource_group_name = azurerm_resource_group.test.name
   security_group_name = "nsg_testPredefinedAD"
 
@@ -43,7 +43,7 @@ resource "azurerm_application_security_group" "second" {
 }
 
 module "testPredefinedRuleWithCustom" {
-  source              = "../../"
+  source              = "../.."
   resource_group_name = azurerm_resource_group.test.name
   security_group_name = "nsg_testPredefinedWithCustom"
   predefined_rules = [
@@ -61,7 +61,7 @@ module "testPredefinedRuleWithCustom" {
 }
 
 module "testPredefinedRuleWithPrefix" {
-  source                = "../../"
+  source                = "../.."
   resource_group_name   = azurerm_resource_group.test.name
   security_group_name   = "nsg_${random_id.randomize.hex}testPredefinedWithPrefix"
   source_address_prefix = ["VirtualNetwork"]
@@ -79,7 +79,7 @@ module "testPredefinedRuleWithPrefix" {
 }
 
 module "testPredefinedRuleWithPrefixes" {
-  source                  = "../../"
+  source                  = "../.."
   resource_group_name     = azurerm_resource_group.test.name
   security_group_name     = "nsg_${random_id.randomize.hex}testPredefinedWithPrefixes"
   source_address_prefixes = ["10.151.0.0/24", "10.151.1.0/24"]
@@ -99,7 +99,7 @@ module "testPredefinedRuleWithPrefixes" {
 
 
 module "testCustom" {
-  source              = "../../"
+  source              = "../.."
   resource_group_name = azurerm_resource_group.test.name
   security_group_name = "nsg_testCustom"
   custom_rules = [
@@ -131,7 +131,7 @@ module "testCustom" {
 }
 
 module "testCustomPrefix" {
-  source              = "../../"
+  source              = "../.."
   resource_group_name = azurerm_resource_group.test.name
   security_group_name = "nsg_${random_id.randomize.hex}testCustomPrefix"
   custom_rules = [
