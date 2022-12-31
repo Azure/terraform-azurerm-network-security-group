@@ -2,12 +2,11 @@ package e2e
 
 import (
 	"fmt"
+	"github.com/stretchr/testify/assert"
 	"os"
 	"regexp"
 	"strings"
 	"testing"
-
-	"github.com/stretchr/testify/assert"
 
 	test_helper "github.com/Azure/terraform-module-test-helper"
 	"github.com/gruntwork-io/terratest/modules/terraform"
