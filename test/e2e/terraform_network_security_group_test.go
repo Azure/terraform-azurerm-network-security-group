@@ -2,7 +2,6 @@ package e2e
 
 import (
 	"fmt"
-	"github.com/stretchr/testify/assert"
 	"os"
 	"regexp"
 	"strings"
@@ -10,6 +9,7 @@ import (
 
 	test_helper "github.com/Azure/terraform-module-test-helper"
 	"github.com/gruntwork-io/terratest/modules/terraform"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestExamples(t *testing.T) {
