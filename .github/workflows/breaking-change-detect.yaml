@@ -1,0 +1,11 @@
+name: 'Comment on PR'
+
+on:
+  workflow_run:
+    workflows: ["Pre Pull Request Check"]
+    types:
+      - completed
+
+jobs:
+  comment:
+    uses: Azure/tfmod-scaffold/.github/workflows/breaking-change-detect.yaml@main

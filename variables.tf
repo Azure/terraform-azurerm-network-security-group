@@ -23,9 +23,9 @@ variable "location" {
   default = ""
 }
 
-# Security Rules definition 
+# Security Rules definition
 
-# Predefined rules   
+# Predefined rules
 variable "predefined_rules" {
   type    = any
   default = []

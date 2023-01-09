@@ -1,0 +1,28 @@
+name: E2E Test
+on:
+  pull_request:
+    types: [ 'opened', 'synchronize' ]
+    paths:
+      - '.github/**'
+      - '**.go'
+      - '**.tf'
+      - '.github/workflows/**'
+      - '**.md'
+      - '**/go.mod'
+
+jobs:
+  acc-tests:
+    runs-on: [self-hosted, 1ES.Pool=terraform-azurerm-network-security-group]
+    environment:
+      name: acctests
+    steps:
+      - uses: actions/checkout@v3
+      - name: init
+        run: |
+          docker run --rm -v $(pwd):/src -w /src mcr.microsoft.com/azterraform:latest make generate
+      - name: e2e test
+        run: |
+          sh scripts/ci-e2e.sh
+      - name: version-upgrade test
+        run: |
+          sh scripts/ci-version-upgrade.sh
