@@ -18,7 +18,7 @@ func TestExamples(t *testing.T) {
 	}
 
 	for _, d := range directories {
-		if strings.HasPrefix(d.Name(), "_") || strings.Contains(d.Name(), "test") || !d.IsDir() {
+		if strings.HasPrefix(d.Name(), "_") || !d.IsDir() {
 			continue
 		}
 		t.Run(d.Name(), func(t *testing.T) {
