@@ -4,6 +4,7 @@
 
 **Merged pull requests:**
 
+- Restore `modules` folder [\#83](https://github.com/Azure/terraform-azurerm-network-security-group/pull/83) ([lonegunmanb](https://github.com/lonegunmanb))
 - Modernize the module architecture [\#78](https://github.com/Azure/terraform-azurerm-network-security-group/pull/78) ([Pumpkin-3906](https://github.com/Pumpkin-3906))
 - fix: change incorrect protocol casing [\#77](https://github.com/Azure/terraform-azurerm-network-security-group/pull/77) ([koralowiec](https://github.com/koralowiec))
 - Adding Microsoft SECURITY.MD [\#74](https://github.com/Azure/terraform-azurerm-network-security-group/pull/74) ([microsoft-github-policy-service[bot]](https://github.com/apps/microsoft-github-policy-service))
