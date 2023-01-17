@@ -1,6 +1,3 @@
-# Network security group configuration: custom_rules, resource_group_name, security_group_name, tags
-# Security rules configuration: destination_address_prefix, location, source_address_prefix
-
 variable "custom_rules" {
   description = "Custom set of security rules using this format"
   type        = list(any)
