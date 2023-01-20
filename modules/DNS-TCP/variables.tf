@@ -1,20 +1,3 @@
-# Network security group configuration
-variable "resource_group_name" {
-  default     = "nsg_rg"
-  description = "Name of the resource group"
-}
-
-variable "security_group_name" {
-  description = "Name of the network security group"
-  default     = "nsg"
-}
-
-variable "tags" {
-  description = "The tags to associate with your network security group."
-  type        = map(string)
-  default     = {}
-}
-
 variable "custom_rules" {
   description = "Custom set of security rules using this format"
   type        = list(any)
@@ -33,7 +16,23 @@ variable "custom_rules" {
   #}]
 }
 
-# Security rules configuration 
+variable "destination_address_prefix" {
+  type    = list(any)
+  default = ["*"]
+
+  # Example: ["10.0.3.0/32","10.0.3.128/32"]
+}
+
+variable "resource_group_name" {
+  default     = "nsg_rg"
+  description = "Name of the resource group"
+}
+
+variable "security_group_name" {
+  description = "Name of the network security group"
+  default     = "nsg"
+}
+
 variable "source_address_prefix" {
   type    = list(any)
   default = ["*"]
@@ -41,9 +40,8 @@ variable "source_address_prefix" {
   # Example: ["10.0.3.0/24"]
 }
 
-variable "destination_address_prefix" {
-  type    = list(any)
-  default = ["*"]
-
-  # Example: ["10.0.3.0/32","10.0.3.128/32"]
+variable "tags" {
+  description = "The tags to associate with your network security group."
+  type        = map(string)
+  default     = {}
 }

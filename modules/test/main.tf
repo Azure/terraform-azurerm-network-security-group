@@ -1,5 +1,5 @@
 module "test-nsg" {
-  source = "../http"
+  source = "../HTTP"
 
   security_group_name = "web-http"
   resource_group_name = "nsg-http"
