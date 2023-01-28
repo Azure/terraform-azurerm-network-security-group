@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased](https://github.com/Azure/terraform-azurerm-network-security-group/tree/HEAD)
+
+**Merged pull requests:**
+
+- Bump github.com/Azure/terraform-module-test-helper from 0.3.0 to 0.7.1 in /test [\#85](https://github.com/Azure/terraform-azurerm-network-security-group/pull/85) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v4.0.0](https://github.com/Azure/terraform-azurerm-network-security-group/tree/v4.0.0) (2023-01-20)
 
 **Merged pull requests:**
