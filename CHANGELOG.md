@@ -4,6 +4,7 @@
 
 **Merged pull requests:**
 
+- Bump github.com/gruntwork-io/terratest from 0.41.9 to 0.41.10 in /test [\#87](https://github.com/Azure/terraform-azurerm-network-security-group/pull/87) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump github.com/Azure/terraform-module-test-helper from 0.3.0 to 0.7.1 in /test [\#85](https://github.com/Azure/terraform-azurerm-network-security-group/pull/85) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [v4.0.0](https://github.com/Azure/terraform-azurerm-network-security-group/tree/v4.0.0) (2023-01-20)
