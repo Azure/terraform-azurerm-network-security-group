@@ -4,6 +4,7 @@
 
 **Merged pull requests:**
 
+- Capture the iterator variable to avoid concurrent test error [\#89](https://github.com/Azure/terraform-azurerm-network-security-group/pull/89) ([lonegunmanb](https://github.com/lonegunmanb))
 - Add random string to test resource group name so we can run tests in parallel [\#88](https://github.com/Azure/terraform-azurerm-network-security-group/pull/88) ([lonegunmanb](https://github.com/lonegunmanb))
 - Bump github.com/gruntwork-io/terratest from 0.41.9 to 0.41.10 in /test [\#87](https://github.com/Azure/terraform-azurerm-network-security-group/pull/87) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump github.com/Azure/terraform-module-test-helper from 0.3.0 to 0.7.1 in /test [\#85](https://github.com/Azure/terraform-azurerm-network-security-group/pull/85) ([dependabot[bot]](https://github.com/apps/dependabot))
