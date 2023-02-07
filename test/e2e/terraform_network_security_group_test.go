@@ -18,11 +18,12 @@ func TestExamples(t *testing.T) {
 	}
 
 	for _, d := range directories {
-		if strings.HasPrefix(d.Name(), "_") || !d.IsDir() {
+		directory := d
+		if strings.HasPrefix(directory.Name(), "_") || !directory.IsDir() {
 			continue
 		}
-		t.Run(d.Name(), func(t *testing.T) {
-			test_helper.RunE2ETest(t, "../../", fmt.Sprintf("examples/%s", d.Name()), terraform.Options{
+		t.Run(directory.Name(), func(t *testing.T) {
+			test_helper.RunE2ETest(t, "../../", fmt.Sprintf("examples/%s", directory.Name()), terraform.Options{
 				Upgrade: true,
 			}, func(t *testing.T, output test_helper.TerraformOutput) {
 				nsgId, ok := output["network_security_group_id"].(string)
