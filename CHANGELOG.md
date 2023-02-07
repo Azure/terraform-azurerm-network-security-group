@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased](https://github.com/Azure/terraform-azurerm-network-security-group/tree/HEAD)
+## [4.0.1](https://github.com/Azure/terraform-azurerm-network-security-group/tree/4.0.1) (2023-02-07)
 
 **Merged pull requests:**
 
