@@ -24,10 +24,11 @@ func TestUpgrade(t *testing.T) {
 		t.FailNow()
 	}
 	for _, d := range directories {
-		if strings.HasPrefix(d.Name(), "_") || strings.Contains(d.Name(), "test") || !d.IsDir() {
+		directory := d
+		if strings.HasPrefix(directory.Name(), "_") || strings.Contains(directory.Name(), "test") || !directory.IsDir() {
 			continue
 		}
-		t.Run(d.Name(), func(t *testing.T) {
+		t.Run(directory.Name(), func(t *testing.T) {
 			test_helper.ModuleUpgradeTest(t, "Azure", "terraform-azurerm-network-security-group", fmt.Sprintf("examples/%s", d.Name()), currentRoot, terraform.Options{
 				Upgrade: true,
 			}, currentMajorVersion)
