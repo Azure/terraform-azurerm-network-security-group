@@ -25,6 +25,12 @@ variable "destination_address_prefixes" {
   default     = null
 }
 
+variable "iteration" {
+  description = "Iteration technic to generate the rules, defaults to 'count' for compatibilty reasons, prefered method is 'for_each'"
+  type        = string
+  default     = "count"
+}
+
 variable "location" {
   description = "Location (Azure Region) for the network security group."
   # No default - if it's not specified, use the resource group location (see main.tf)
