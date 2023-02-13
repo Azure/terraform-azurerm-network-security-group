@@ -1,7 +1,7 @@
 module "nsg" {
   source              = "../../"
   resource_group_name = var.resource_group_name
-  iteration           = "for_each"
+  use_for_each        = true
 
   security_group_name = var.security_group_name
 

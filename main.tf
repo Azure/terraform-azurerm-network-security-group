@@ -14,7 +14,7 @@ resource "azurerm_network_security_group" "nsg" {
 #############################
 
 resource "azurerm_network_security_rule" "predefined_rules" {
-  count = var.iteration == "count" ? length(var.predefined_rules) : 0
+  count = var.use_for_each ? 0 : length(var.predefined_rules)
 
   access                                     = element(var.rules[lookup(var.predefined_rules[count.index], "name")], 1)
   direction                                  = element(var.rules[lookup(var.predefined_rules[count.index], "name")], 0)
@@ -36,11 +36,11 @@ resource "azurerm_network_security_rule" "predefined_rules" {
 }
 
 resource "azurerm_network_security_rule" "predefined_rules_for" {
-  for_each = { for value in var.predefined_rules : value.name => value if var.iteration == "for_each" }
+  for_each = { for value in var.predefined_rules : value.name => value if var.use_for_each }
 
   access                                     = element(var.rules[lookup(each.value, "name")], 1)
   direction                                  = element(var.rules[lookup(each.value, "name")], 0)
-  name                                       = lookup(each.value, "name")
+  name                                       = each.value.name
   network_security_group_name                = azurerm_network_security_group.nsg.name
   priority                                   = each.value.priority
   protocol                                   = element(var.rules[lookup(each.value, "name")], 2)
@@ -62,16 +62,16 @@ resource "azurerm_network_security_rule" "predefined_rules_for" {
 #############################
 
 resource "azurerm_network_security_rule" "custom_rules" {
-  count = var.iteration == "count" ? length(var.custom_rules) : 0
+  count = var.use_for_each ? 0 : length(var.custom_rules)
 
   access                                     = lookup(var.custom_rules[count.index], "access", "Allow")
   direction                                  = lookup(var.custom_rules[count.index], "direction", "Inbound")
-  name                                       = lookup(var.custom_rules[count.index], "name", "default_rule_name")
+  name                                       = lookup(var.custom_rules[count.index], "name")
   network_security_group_name                = azurerm_network_security_group.nsg.name
   priority                                   = lookup(var.custom_rules[count.index], "priority")
   protocol                                   = lookup(var.custom_rules[count.index], "protocol", "*")
   resource_group_name                        = data.azurerm_resource_group.nsg.name
-  description                                = lookup(var.custom_rules[count.index], "description", "Security rule for ${lookup(var.custom_rules[count.index], "name", "default_rule_name")}")
+  description                                = lookup(var.custom_rules[count.index], "description", null) == null ? "Security rule for ${lookup(var.custom_rules[count.index], "name", "default_rule_name")}" : lookup(var.custom_rules[count.index], "description", null)
   destination_address_prefix                 = lookup(var.custom_rules[count.index], "destination_application_security_group_ids", null) == null && lookup(var.custom_rules[count.index], "destination_address_prefixes", null) == null ? lookup(var.custom_rules[count.index], "destination_address_prefix", "*") : null
   destination_address_prefixes               = lookup(var.custom_rules[count.index], "destination_application_security_group_ids", null) == null ? lookup(var.custom_rules[count.index], "destination_address_prefixes", null) : null
   destination_application_security_group_ids = lookup(var.custom_rules[count.index], "destination_application_security_group_ids", null)
@@ -84,17 +84,17 @@ resource "azurerm_network_security_rule" "custom_rules" {
 }
 
 resource "azurerm_network_security_rule" "custom_rules_for" {
-  for_each = { for value in var.custom_rules : value.name => value if var.iteration == "for_each" }
+  for_each = { for value in var.custom_rules : value.name => value if var.use_for_each }
 
   access                                     = lookup(each.value, "access", "Allow")
   direction                                  = lookup(each.value, "direction", "Inbound")
-  name                                       = lookup(each.value, "name", "default_rule_name")
+  name                                       = each.value.name
   network_security_group_name                = azurerm_network_security_group.nsg.name
   priority                                   = each.value.priority
   protocol                                   = lookup(each.value, "protocol", "*")
   resource_group_name                        = data.azurerm_resource_group.nsg.name
-  description                                = lookup(each.value, "description", "Security rule for ${lookup(each.value, "name", "default_rule_name")}")
-  destination_address_prefix                 = lookup(each.value, "destination_application_security_group_ids", null) == null || lookup(each.value, "destination_address_prefixes", null) == null ? lookup(each.value, "destination_address_prefix", "*") : null
+  description                                = lookup(each.value, "description", null) == null ? "Security rule for ${lookup(each.value, "name", "default_rule_name")}" : lookup(each.value, "description", null)
+  destination_address_prefix                 = lookup(each.value, "destination_application_security_group_ids", null) == null && lookup(each.value, "destination_address_prefixes", null) == null ? lookup(each.value, "destination_address_prefix", "*") : null
   destination_address_prefixes               = lookup(each.value, "destination_application_security_group_ids", null) == null ? lookup(each.value, "destination_address_prefixes", null) : null
   destination_application_security_group_ids = lookup(each.value, "destination_application_security_group_ids", null)
   destination_port_ranges                    = split(",", replace(lookup(each.value, "destination_port_range", "*"), "*", "0-65535"))
