@@ -40,7 +40,7 @@ resource "azurerm_network_security_rule" "predefined_rules_for" {
 
   access                                     = element(var.rules[lookup(each.value, "name")], 1)
   direction                                  = element(var.rules[lookup(each.value, "name")], 0)
-  name                                       = each.value.name
+  name                                       = lookup(each.value, "name")
   network_security_group_name                = azurerm_network_security_group.nsg.name
   priority                                   = each.value.priority
   protocol                                   = element(var.rules[lookup(each.value, "name")], 2)
@@ -66,12 +66,12 @@ resource "azurerm_network_security_rule" "custom_rules" {
 
   access                                     = lookup(var.custom_rules[count.index], "access", "Allow")
   direction                                  = lookup(var.custom_rules[count.index], "direction", "Inbound")
-  name                                       = lookup(var.custom_rules[count.index], "name")
+  name                                       = lookup(var.custom_rules[count.index], "name", "default_rule_name")
   network_security_group_name                = azurerm_network_security_group.nsg.name
   priority                                   = lookup(var.custom_rules[count.index], "priority")
   protocol                                   = lookup(var.custom_rules[count.index], "protocol", "*")
   resource_group_name                        = data.azurerm_resource_group.nsg.name
-  description                                = lookup(var.custom_rules[count.index], "description", null) == null ? "Security rule for ${lookup(var.custom_rules[count.index], "name", "default_rule_name")}" : lookup(var.custom_rules[count.index], "description", null)
+  description                                = lookup(var.custom_rules[count.index], "description", "Security rule for ${lookup(var.custom_rules[count.index], "name", "default_rule_name")}")
   destination_address_prefix                 = lookup(var.custom_rules[count.index], "destination_application_security_group_ids", null) == null && lookup(var.custom_rules[count.index], "destination_address_prefixes", null) == null ? lookup(var.custom_rules[count.index], "destination_address_prefix", "*") : null
   destination_address_prefixes               = lookup(var.custom_rules[count.index], "destination_application_security_group_ids", null) == null ? lookup(var.custom_rules[count.index], "destination_address_prefixes", null) : null
   destination_application_security_group_ids = lookup(var.custom_rules[count.index], "destination_application_security_group_ids", null)
@@ -88,12 +88,12 @@ resource "azurerm_network_security_rule" "custom_rules_for" {
 
   access                                     = lookup(each.value, "access", "Allow")
   direction                                  = lookup(each.value, "direction", "Inbound")
-  name                                       = each.value.name
+  name                                       = lookup(each.value, "name", "default_rule_name")
   network_security_group_name                = azurerm_network_security_group.nsg.name
   priority                                   = each.value.priority
   protocol                                   = lookup(each.value, "protocol", "*")
   resource_group_name                        = data.azurerm_resource_group.nsg.name
-  description                                = lookup(each.value, "description", null) == null ? "Security rule for ${lookup(each.value, "name", "default_rule_name")}" : lookup(each.value, "description", null)
+  description                                = lookup(each.value, "description", "Security rule for ${lookup(each.value, "name", "default_rule_name")}")
   destination_address_prefix                 = lookup(each.value, "destination_application_security_group_ids", null) == null && lookup(each.value, "destination_address_prefixes", null) == null ? lookup(each.value, "destination_address_prefix", "*") : null
   destination_address_prefixes               = lookup(each.value, "destination_application_security_group_ids", null) == null ? lookup(each.value, "destination_address_prefixes", null) : null
   destination_application_security_group_ids = lookup(each.value, "destination_application_security_group_ids", null)

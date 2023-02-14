@@ -5,27 +5,12 @@ variable "resource_group_name" {
 }
 
 # Custom security rules
-# [{name, priority, destination_port_range}]"
+# [name, priority, direction, access, protocol, source_port_range, destination_port_range, description]"
 # All the fields are required.
 variable "custom_rules" {
-  description = "Security rules for the network security group using this format name = [{name, priority, direction, access, protocol, source_port_range, destination_port_range, source_address_prefix, destination_address_prefix, description}]"
-  type = list(object({
-    name                                       = string
-    priority                                   = number
-    direction                                  = optional(string, "Inbound")
-    access                                     = optional(string, "Allow")
-    protocol                                   = optional(string, "*")
-    source_port_range                          = optional(string, "*")
-    source_application_security_group_ids      = optional(list(string), null)
-    source_address_prefix                      = optional(string, "*")
-    source_address_prefixes                    = optional(list(string), null)
-    destination_address_prefix                 = optional(string, "*")
-    destination_address_prefixes               = optional(list(string), null)
-    destination_application_security_group_ids = optional(list(string), null)
-    destination_port_range                     = string
-    description                                = optional(string, null)
-  }))
-  default = []
+  description = "Security rules for the network security group using this format name = [name, priority, direction, access, protocol, source_port_range, destination_port_range, source_address_prefix, destination_address_prefix, description]"
+  type        = any
+  default     = []
 }
 
 variable "destination_address_prefix" {
@@ -38,6 +23,12 @@ variable "destination_address_prefixes" {
   description = "Destination address prefix to be applied to all predefined rules. Example [\"10.0.3.0/32\",\"10.0.3.128/32\"]"
   type        = list(string)
   default     = null
+}
+
+variable "iteration" {
+  description = "Iteration technic to generate the rules, defaults to 'count' for compatibilty reasons, prefered method is 'for_each'"
+  type        = string
+  default     = "count"
 }
 
 variable "location" {
@@ -207,4 +198,5 @@ variable "use_for_each" {
   description = "Choose wheter to use 'for_each' as iteration technic to generate the rules, defaults to false so we will use 'count' for compatibilty with previous module versions, but prefered method is 'for_each'"
   type        = bool
   default     = false
+  nullable    = false
 }
