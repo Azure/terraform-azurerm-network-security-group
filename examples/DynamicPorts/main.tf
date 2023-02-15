@@ -12,6 +12,7 @@ resource "azurerm_resource_group" "nsg_rg" {
 module "nsg" {
   source              = "../../"
   resource_group_name = azurerm_resource_group.nsg_rg.name
+  use_for_each        = var.use_for_each
 
   security_group_name = var.security_group_name
 
