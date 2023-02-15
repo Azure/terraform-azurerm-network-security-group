@@ -16,13 +16,6 @@ variable "custom_rules" {
   #}]
 }
 
-variable "use_for_each" {
-  description = "Choose wheter to use 'for_each' as iteration technic to generate the rules, defaults to false so we will use 'count' for compatibilty with previous module versions, but prefered method is 'for_each'"
-  type        = bool
-  default     = false
-  nullable    = false
-}
-
 variable "destination_address_prefix" {
   type    = list(any)
   default = ["*"]
@@ -56,4 +49,11 @@ variable "tags" {
   description = "The tags to associate with your network security group."
   type        = map(string)
   default     = {}
+}
+
+variable "use_for_each" {
+  description = "Choose wheter to use 'for_each' as iteration technic to generate the rules, defaults to false so we will use 'count' for compatibilty with previous module versions, but prefered method is 'for_each'"
+  type        = bool
+  default     = false
+  nullable    = false
 }
