@@ -27,7 +27,7 @@ func TestExamples(t *testing.T) {
 			true,
 		}
 		for _, f := range useForEach {
-			t.Run(directory.Name(), func(t *testing.T) {
+			t.Run(fmt.Sprintf("%s-%t", directory.Name(), f), func(t *testing.T) {
 				test_helper.RunE2ETest(t, "../../", fmt.Sprintf("examples/%s", directory.Name()), terraform.Options{
 					Upgrade: true,
 					Vars: map[string]interface{}{

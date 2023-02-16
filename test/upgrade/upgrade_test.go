@@ -33,7 +33,7 @@ func TestUpgrade(t *testing.T) {
 			true,
 		}
 		for _, f := range useForEach {
-			t.Run(directory.Name(), func(t *testing.T) {
+			t.Run(fmt.Sprintf("%s-%t", directory.Name(), f), func(t *testing.T) {
 				test_helper.ModuleUpgradeTest(t, "Azure", "terraform-azurerm-network-security-group", fmt.Sprintf("examples/%s", d.Name()), currentRoot, terraform.Options{
 					Upgrade: true,
 					Vars: map[string]interface{}{
