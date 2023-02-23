@@ -7,7 +7,8 @@ module "nsg" {
 
   predefined_rules = [
     {
-      name = "SSH"
+      name     = "SSH"
+      priority = 501
     },
   ]
 

@@ -7,7 +7,8 @@ module "nsg" {
 
   predefined_rules = [
     {
-      name = "PostgreSQL"
+      name     = "PostgreSQL"
+      priority = 501
     },
   ]
 

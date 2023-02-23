@@ -7,7 +7,8 @@ module "nsg" {
 
   predefined_rules = [
     {
-      name = "Redis"
+      name     = "Redis"
+      priority = 501
     },
   ]
 

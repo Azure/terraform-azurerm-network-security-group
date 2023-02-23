@@ -7,7 +7,8 @@ module "nsg" {
 
   predefined_rules = [
     {
-      name = "POP3S"
+      name     = "POP3S"
+      priority = 501
     },
   ]
 

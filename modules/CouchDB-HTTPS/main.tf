@@ -7,7 +7,8 @@ module "nsg" {
 
   predefined_rules = [
     {
-      name = "CouchDB-HTTPS"
+      name     = "CouchDB-HTTPS"
+      priority = 501
     },
   ]
 

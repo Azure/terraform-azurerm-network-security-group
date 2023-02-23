@@ -7,7 +7,8 @@ module "nsg" {
 
   predefined_rules = [
     {
-      name = "IMAPS"
+      name     = "IMAPS"
+      priority = 501
     },
   ]
 

@@ -18,7 +18,8 @@ module "nsg" {
 
   predefined_rules = [
     {
-      name = "HTTPS"
+      name     = "HTTPS"
+      priority = 501
     },
   ]
 

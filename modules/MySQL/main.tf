@@ -7,7 +7,8 @@ module "nsg" {
 
   predefined_rules = [
     {
-      name = "MySQL"
+      name     = "MySQL"
+      priority = 501
     },
   ]
 

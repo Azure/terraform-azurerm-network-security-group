@@ -7,7 +7,8 @@ module "nsg" {
 
   predefined_rules = [
     {
-      name = "RabbitMQ"
+      name     = "RabbitMQ"
+      priority = 501
     },
   ]
 

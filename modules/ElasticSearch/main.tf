@@ -7,7 +7,8 @@ module "nsg" {
 
   predefined_rules = [
     {
-      name = "ElasticSearch"
+      name     = "ElasticSearch"
+      priority = 501
     },
   ]
 

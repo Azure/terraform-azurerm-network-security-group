@@ -7,7 +7,8 @@ module "nsg" {
 
   predefined_rules = [
     {
-      name = "FTP"
+      name     = "FTP"
+      priority = 501
     },
   ]
 

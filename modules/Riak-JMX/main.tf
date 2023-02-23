@@ -7,7 +7,8 @@ module "nsg" {
 
   predefined_rules = [
     {
-      name = "Riak-JMX"
+      name     = "Riak-JMX"
+      priority = 501
     },
   ]
 

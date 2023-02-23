@@ -17,7 +17,8 @@ module "nsg" {
 
   predefined_rules = [
     {
-      name = "Memcached"
+      name     = "Memcached"
+      priority = 501
     },
   ]
 

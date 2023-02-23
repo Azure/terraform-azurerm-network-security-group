@@ -18,7 +18,8 @@ module "nsg" {
 
   predefined_rules = [
     {
-      name = "DynamicPorts"
+      name     = "DynamicPorts"
+      priority = 501
     },
   ]
 

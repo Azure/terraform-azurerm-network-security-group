@@ -6,7 +6,8 @@ module "nsg" {
 
   predefined_rules = [
     {
-      name = "CouchDB"
+      name     = "CouchDB"
+      priority = 501
     },
   ]
 

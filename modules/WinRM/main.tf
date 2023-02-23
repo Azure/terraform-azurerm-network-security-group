@@ -7,7 +7,8 @@ module "nsg" {
 
   predefined_rules = [
     {
-      name = "WinRM"
+      name     = "WinRM"
+      priority = 501
     },
   ]
 

@@ -7,7 +7,8 @@ module "nsg" {
 
   predefined_rules = [
     {
-      name = "HTTP"
+      name     = "HTTP"
+      priority = 501
     },
   ]
 

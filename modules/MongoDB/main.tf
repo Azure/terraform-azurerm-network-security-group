@@ -7,7 +7,8 @@ module "nsg" {
 
   predefined_rules = [
     {
-      name = "MongoDB"
+      name     = "MongoDB"
+      priority = 501
     },
   ]
 

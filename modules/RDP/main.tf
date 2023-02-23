@@ -7,7 +7,8 @@ module "nsg" {
 
   predefined_rules = [
     {
-      name = "RDP"
+      name     = "RDP"
+      priority = 501
     },
   ]
 

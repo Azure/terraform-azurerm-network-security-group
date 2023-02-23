@@ -55,6 +55,13 @@ resource "azurerm_network_security_rule" "predefined_rules_for" {
   source_application_security_group_ids      = lookup(each.value, "source_application_security_group_ids", null)
   source_port_range                          = lookup(each.value, "source_port_range", "*") == "*" ? "*" : null
   source_port_ranges                         = lookup(each.value, "source_port_range", "*") == "*" ? null : split(",", each.value.source_port_range)
+
+  lifecycle {
+    precondition {
+      condition     = contains(keys(each.value), "priority")
+      error_message = "Precondition failed: 'predefined_rules.priority' must be provided for predefined rules if 'var.use_for_each' is set to true."
+    }
+  }
 }
 
 #############################
@@ -81,6 +88,13 @@ resource "azurerm_network_security_rule" "custom_rules" {
   source_application_security_group_ids      = lookup(var.custom_rules[count.index], "source_application_security_group_ids", null)
   source_port_range                          = lookup(var.custom_rules[count.index], "source_port_range", "*") == "*" ? "*" : null
   source_port_ranges                         = lookup(var.custom_rules[count.index], "source_port_range", "*") == "*" ? null : split(",", var.custom_rules[count.index].source_port_range)
+
+  lifecycle {
+    precondition {
+      condition     = contains(keys(var.custom_rules[count.index]), "priority")
+      error_message = "Precondition failed: 'predefined_rules.priority' must be provided for custom rules."
+    }
+  }
 }
 
 resource "azurerm_network_security_rule" "custom_rules_for" {
@@ -103,4 +117,11 @@ resource "azurerm_network_security_rule" "custom_rules_for" {
   source_application_security_group_ids      = lookup(each.value, "source_application_security_group_ids", null)
   source_port_range                          = lookup(each.value, "source_port_range", "*") == "*" ? "*" : null
   source_port_ranges                         = lookup(each.value, "source_port_range", "*") == "*" ? null : split(",", each.value.source_port_range)
+
+  lifecycle {
+    precondition {
+      condition     = contains(keys(each.value), "priority")
+      error_message = "Precondition failed: 'predefined_rules.priority' must be provided for custom rules."
+    }
+  }
 }

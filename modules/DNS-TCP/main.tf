@@ -7,7 +7,8 @@ module "nsg" {
 
   predefined_rules = [
     {
-      name = "DNS-TCP"
+      name     = "DNS-TCP"
+      priority = 501
     },
   ]
 

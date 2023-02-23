@@ -7,7 +7,8 @@ module "nsg" {
 
   predefined_rules = [
     {
-      name = "Riak"
+      name     = "Riak"
+      priority = 501
     },
   ]
 
