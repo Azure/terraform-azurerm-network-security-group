@@ -58,8 +58,8 @@ resource "azurerm_network_security_rule" "predefined_rules_for" {
 
   lifecycle {
     precondition {
-      condition     = contains(keys(each.value), "priority")
-      error_message = "Precondition failed: 'predefined_rules.priority' must be provided for predefined rules if 'var.use_for_each' is set to true."
+      condition     = try(each.value.priority >= 100 && each.value.priority <= 4096, false)
+      error_message = "Precondition failed: 'predefined_rules.priority' must be provided and configured between 100 and 4096 for predefined rules if 'var.use_for_each' is set to true."
     }
   }
 }
@@ -91,8 +91,8 @@ resource "azurerm_network_security_rule" "custom_rules" {
 
   lifecycle {
     precondition {
-      condition     = contains(keys(var.custom_rules[count.index]), "priority")
-      error_message = "Precondition failed: 'predefined_rules.priority' must be provided for custom rules."
+      condition     = try(var.custom_rules[count.index].priority >= 100 && var.custom_rules[count.index].priority <= 4096, false)
+      error_message = "Precondition failed: 'predefined_rules.priority' must be provided and configured between 100 and 4096 for custom rules."
     }
   }
 }
@@ -120,8 +120,8 @@ resource "azurerm_network_security_rule" "custom_rules_for" {
 
   lifecycle {
     precondition {
-      condition     = contains(keys(each.value), "priority")
-      error_message = "Precondition failed: 'predefined_rules.priority' must be provided for custom rules."
+      condition     = try(each.value.priority >= 100 && each.value.priority <= 4096, false)
+      error_message = "Precondition failed: 'predefined_rules.priority' must be provided and configured between 100 and 4096 for custom rules."
     }
   }
 }
