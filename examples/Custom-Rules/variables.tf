@@ -1,20 +1,20 @@
-variable "custom_rules" {
-  description = "Custom set of security rules using this format"
-  type        = list(any)
-  default     = []
+# variable "custom_rules" {
+#   description = "Custom set of security rules using this format"
+#   type        = list(any)
+#   default     = []
 
-  # Example:
-  # custom_rules = [{
-  # name                   = "myssh"
-  # priority               = "101"
-  # direction              = "Inbound"
-  # access                 = "Allow"
-  # protocol               = "tcp"
-  # source_port_range      = "1234"
-  # destination_port_range = "22"
-  # description            = "description-myssh"
-  #}]
-}
+#   # Example:
+#   # custom_rules = [{
+#   # name                   = "myssh"
+#   # priority               = "101"
+#   # direction              = "Inbound"
+#   # access                 = "Allow"
+#   # protocol               = "tcp"
+#   # source_port_range      = "1234"
+#   # destination_port_range = "22"
+#   # description            = "description-myssh"
+#   #}]
+# }
 
 variable "destination_address_prefix" {
   type    = list(any)
@@ -23,10 +23,10 @@ variable "destination_address_prefix" {
   # Example: ["10.0.3.0/32","10.0.3.128/32"]
 }
 
-# variable "location" {
-#   type    = string
-#   default = "westus"
-# }
+variable "location" {
+  type    = string
+  default = "westus"
+}
 
 variable "resource_group_name" {
   default     = "nsg_rg"

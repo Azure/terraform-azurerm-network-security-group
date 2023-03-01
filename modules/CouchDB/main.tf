@@ -1,12 +1,13 @@
 module "nsg" {
   source              = "../../"
   resource_group_name = var.resource_group_name
-
+  use_for_each        = var.use_for_each
   security_group_name = var.security_group_name
 
   predefined_rules = [
     {
-      name = "CouchDB"
+      name     = "CouchDB"
+      priority = 501
     },
   ]
 

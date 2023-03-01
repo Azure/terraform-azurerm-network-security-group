@@ -13,6 +13,7 @@ module "nsg" {
   source = "../../modules/DNS-UDP"
 
   resource_group_name        = azurerm_resource_group.nsg_rg.name
+  use_for_each               = var.use_for_each
   custom_rules               = var.custom_rules
   destination_address_prefix = var.destination_address_prefix
   security_group_name        = var.security_group_name

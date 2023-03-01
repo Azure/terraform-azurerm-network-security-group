@@ -5,10 +5,10 @@ variable "resource_group_name" {
 }
 
 # Custom security rules
-# [priority, direction, access, protocol, source_port_range, destination_port_range, description]"
+# [name, priority, direction, access, protocol, source_port_range, destination_port_range, description]"
 # All the fields are required.
 variable "custom_rules" {
-  description = "Security rules for the network security group using this format name = [priority, direction, access, protocol, source_port_range, destination_port_range, source_address_prefix, destination_address_prefix, description]"
+  description = "Security rules for the network security group using this format name = [name, priority, direction, access, protocol, source_port_range, destination_port_range, source_address_prefix, destination_address_prefix, description]"
   type        = any
   default     = []
 }
@@ -186,4 +186,11 @@ variable "tags" {
   description = "The tags to associate with your network security group."
   type        = map(string)
   default     = {}
+}
+
+variable "use_for_each" {
+  description = "Choose wheter to use 'for_each' as iteration technic to generate the rules, defaults to false so we will use 'count' for compatibilty with previous module versions, but prefered method is 'for_each'"
+  type        = bool
+  default     = false
+  nullable    = false
 }

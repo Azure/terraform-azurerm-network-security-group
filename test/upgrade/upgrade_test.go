@@ -28,10 +28,19 @@ func TestUpgrade(t *testing.T) {
 		if strings.HasPrefix(directory.Name(), "_") || strings.Contains(directory.Name(), "test") || !directory.IsDir() {
 			continue
 		}
-		t.Run(directory.Name(), func(t *testing.T) {
-			test_helper.ModuleUpgradeTest(t, "Azure", "terraform-azurerm-network-security-group", fmt.Sprintf("examples/%s", d.Name()), currentRoot, terraform.Options{
-				Upgrade: true,
-			}, currentMajorVersion)
-		})
+		useForEach := []bool{
+			false,
+			true,
+		}
+		for _, f := range useForEach {
+			t.Run(fmt.Sprintf("%s-%t", directory.Name(), f), func(t *testing.T) {
+				test_helper.ModuleUpgradeTest(t, "Azure", "terraform-azurerm-network-security-group", fmt.Sprintf("examples/%s", d.Name()), currentRoot, terraform.Options{
+					Upgrade: true,
+					Vars: map[string]interface{}{
+						"use_for_each": f,
+					},
+				}, currentMajorVersion)
+			})
+		}
 	}
 }

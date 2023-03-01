@@ -1,57 +1,74 @@
 module "nsg" {
   source              = "../../"
   resource_group_name = var.resource_group_name
+  use_for_each        = var.use_for_each
 
   security_group_name = var.security_group_name
 
   predefined_rules = [
     {
-      name = "ActiveDirectory-AllowNETBIOSReplication"
+      name     = "ActiveDirectory-AllowNETBIOSReplication"
+      priority = 501
     },
     {
-      name = "ActiveDirectory-AllowNETBIOSAuthentication"
+      name     = "ActiveDirectory-AllowNETBIOSAuthentication"
+      priority = 502
     },
     {
-      name = "ActiveDirectory-AllowADDSWebServices"
+      name     = "ActiveDirectory-AllowADDSWebServices"
+      priority = 503
     },
     {
-      name = "ActiveDirectory-AllowDFSGroupPolicy"
+      name     = "ActiveDirectory-AllowDFSGroupPolicy"
+      priority = 504
     },
     {
-      name = "ActiveDirectory-AllowPasswordChangeKerberes"
+      name     = "ActiveDirectory-AllowPasswordChangeKerberes"
+      priority = 505
     },
     {
-      name = "ActiveDirectory-AllowWindowsTime"
+      name     = "ActiveDirectory-AllowWindowsTime"
+      priority = 506
     },
     {
-      name = "ActiveDirectory-AllowFileReplication"
+      name     = "ActiveDirectory-AllowFileReplication"
+      priority = 507
     },
     {
-      name = "ActiveDirectory-AllowRPCReplication"
+      name     = "ActiveDirectory-AllowRPCReplication"
+      priority = 508
     },
     {
-      name = "ActiveDirectory-AllowSMTPReplication"
+      name     = "ActiveDirectory-AllowSMTPReplication"
+      priority = 509
     },
     {
-      name = "ActiveDirectory-AllowADReplicationTrust"
+      name     = "ActiveDirectory-AllowADReplicationTrust"
+      priority = 510
     },
     {
-      name = "ActiveDirectory-AllowKerberosAuthentication"
+      name     = "ActiveDirectory-AllowKerberosAuthentication"
+      priority = 511
     },
     {
-      name = "ActiveDirectory-AllowDNS"
+      name     = "ActiveDirectory-AllowDNS"
+      priority = 512
     },
     {
-      name = "ActiveDirectory-AllowADGCReplicationSSL"
+      name     = "ActiveDirectory-AllowADGCReplicationSSL"
+      priority = 513
     },
     {
-      name = "ActiveDirectory-AllowADGCReplication"
+      name     = "ActiveDirectory-AllowADGCReplication"
+      priority = 514
     },
     {
-      name = "ActiveDirectory-AllowADReplicationSSL"
+      name     = "ActiveDirectory-AllowADReplicationSSL"
+      priority = 515
     },
     {
-      name = "ActiveDirectory-AllowADReplication"
+      name     = "ActiveDirectory-AllowADReplication"
+      priority = 516
     },
   ]
 
