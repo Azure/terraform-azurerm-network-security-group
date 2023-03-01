@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased](https://github.com/Azure/terraform-azurerm-network-security-group/tree/HEAD)
+
+**Merged pull requests:**
+
+- Bump golang.org/x/text from 0.3.7 to 0.3.8 in /test [\#96](https://github.com/Azure/terraform-azurerm-network-security-group/pull/96) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump github.com/Azure/terraform-module-test-helper from 0.8.1 to 0.9.1 in /test [\#95](https://github.com/Azure/terraform-azurerm-network-security-group/pull/95) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Introducing support for azurerm\_network\_security\_rule creation with for\_each iteration meta-argument [\#91](https://github.com/Azure/terraform-azurerm-network-security-group/pull/91) ([juanjojulian](https://github.com/juanjojulian))
+
 ## [4.0.1](https://github.com/Azure/terraform-azurerm-network-security-group/tree/4.0.1) (2023-02-07)
 
 **Merged pull requests:**
