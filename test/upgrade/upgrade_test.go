@@ -34,11 +34,9 @@ func TestUpgrade(t *testing.T) {
 		}
 		for _, f := range useForEach {
 			t.Run(fmt.Sprintf("%s-%t", directory.Name(), f), func(t *testing.T) {
+				t.Setenv("TF_VAR_use_for_each", fmt.Sprintf("%t", f))
 				test_helper.ModuleUpgradeTest(t, "Azure", "terraform-azurerm-network-security-group", fmt.Sprintf("examples/%s", d.Name()), currentRoot, terraform.Options{
 					Upgrade: true,
-					Vars: map[string]interface{}{
-						"use_for_each": f,
-					},
 				}, currentMajorVersion)
 			})
 		}
