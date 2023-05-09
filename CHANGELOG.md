@@ -4,6 +4,7 @@
 
 **Merged pull requests:**
 
+- Add tracing tag toggle variables [\#109](https://github.com/Azure/terraform-azurerm-network-security-group/pull/109) ([lonegunmanb](https://github.com/lonegunmanb))
 - support space inside source\_port\_range [\#108](https://github.com/Azure/terraform-azurerm-network-security-group/pull/108) ([lonegunmanb](https://github.com/lonegunmanb))
 - Bump github.com/Azure/terraform-module-test-helper from 0.12.0 to 0.13.0 in /test [\#105](https://github.com/Azure/terraform-azurerm-network-security-group/pull/105) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump github.com/Azure/terraform-module-test-helper from 0.10.0 to 0.12.0 in /test [\#103](https://github.com/Azure/terraform-azurerm-network-security-group/pull/103) ([dependabot[bot]](https://github.com/apps/dependabot))

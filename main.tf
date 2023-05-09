@@ -6,7 +6,14 @@ resource "azurerm_network_security_group" "nsg" {
   location            = var.location != "" ? var.location : data.azurerm_resource_group.nsg.location
   name                = var.security_group_name
   resource_group_name = data.azurerm_resource_group.nsg.name
-  tags                = var.tags
+  tags = merge(var.tags, (/*<box>*/ (var.tracing_tags_enabled ? { for k, v in /*</box>*/ {
+    avm_git_commit           = "fd9037e4f7a3784083665fdb6c781afd2c3f5744"
+    avm_git_file             = "main.tf"
+    avm_git_last_modified_at = "2023-01-20 10:47:52"
+    avm_git_org              = "Azure"
+    avm_git_repo             = "terraform-azurerm-network-security-group"
+    avm_yor_trace            = "8157f32c-322a-4950-951c-1a639c92e8ac"
+  } /*<box>*/ : replace(k, "avm_", var.tracing_tags_prefix) => v } : {}) /*</box>*/))
 }
 
 #############################
