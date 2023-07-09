@@ -1,3 +1,35 @@
+## 09 Jul 23 00:58 UTC
+
+Success: false
+
+### Versions
+
+
+
+### Error
+
+
+Initializing the backend...
+Initializing modules...
+- nsg in ../../modules/ElasticSearch
+- nsg.nsg in ../..
+
+Initializing provider plugins...
+- Finding hashicorp/azurerm versions matching ">= 3.11.0, < 4.0.0"...
+- Finding hashicorp/random versions matching ">= 3.0.0"...
+- Installing hashicorp/azurerm v3.64.0...
+- Installed hashicorp/azurerm v3.64.0 (signed by HashiCorp)
+- Installing hashicorp/random v3.5.1...
+
+Error: Failed to install provider
+
+Error while installing hashicorp/random v3.5.1: releases.hashicorp.com: Get
+"https://releases.hashicorp.com/terraform-provider-random/3.5.1/terraform-provider-random_3.5.1_linux_amd64.zip":
+read tcp 10.1.36.0:45288->108.138.85.31:443: read: connection reset by peer
+
+
+---
+
 ## 02 Jul 23 00:35 UTC
 
 Success: true
