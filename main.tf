@@ -12,7 +12,9 @@ resource "azurerm_network_security_group" "nsg" {
     avm_git_last_modified_at = "2023-01-20 10:47:52"
     avm_git_org              = "Azure"
     avm_git_repo             = "terraform-azurerm-network-security-group"
-    avm_yor_trace            = "8157f32c-322a-4950-951c-1a639c92e8ac"
+    avm_yor_trace            = "7e410e5c-5ed9-4e8b-8d5e-8d8da29c402c"
+    } /*<box>*/ : replace(k, "avm_", var.tracing_tags_prefix) => v } : {}) /*</box>*/), (/*<box>*/ (var.tracing_tags_enabled ? { for k, v in /*</box>*/ {
+    avm_yor_name = "nsg"
   } /*<box>*/ : replace(k, "avm_", var.tracing_tags_prefix) => v } : {}) /*</box>*/))
 }
 
