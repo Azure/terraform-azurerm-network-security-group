@@ -1,3 +1,36 @@
+## 10 Sep 23 00:39 UTC
+
+Success: false
+
+### Versions
+
+
+
+### Error
+
+
+Initializing the backend...
+Initializing modules...
+- nsg in ../../modules/POP3
+- nsg.nsg in ../..
+
+Initializing provider plugins...
+- Finding hashicorp/random versions matching ">= 3.0.0"...
+- Finding hashicorp/azurerm versions matching ">= 3.11.0, < 4.0.0"...
+- Installing hashicorp/azurerm v3.72.0...
+- Installed hashicorp/azurerm v3.72.0 (signed by HashiCorp)
+
+Error: Failed to query available provider packages
+
+Could not retrieve the list of available versions for provider
+hashicorp/random: could not connect to registry.terraform.io: failed to
+request discovery document: Get
+"https://registry.terraform.io/.well-known/terraform.json": read tcp
+10.1.22.0:53868->108.138.64.35:443: read: connection reset by peer
+
+
+---
+
 ## 03 Sep 23 01:07 UTC
 
 Success: true
