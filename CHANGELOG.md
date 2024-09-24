@@ -4,6 +4,7 @@
 
 **Merged pull requests:**
 
+- Prepare for using oidc as authentication method [\#148](https://github.com/Azure/terraform-azurerm-network-security-group/pull/148) ([lonegunmanb](https://github.com/lonegunmanb))
 - Bump github.com/Azure/terraform-module-test-helper from 0.13.0 to 0.15.0 in /test [\#123](https://github.com/Azure/terraform-azurerm-network-security-group/pull/123) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Add tracing tag toggle variables [\#109](https://github.com/Azure/terraform-azurerm-network-security-group/pull/109) ([lonegunmanb](https://github.com/lonegunmanb))
 - support space inside source\_port\_range [\#108](https://github.com/Azure/terraform-azurerm-network-security-group/pull/108) ([lonegunmanb](https://github.com/lonegunmanb))
