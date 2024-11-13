@@ -4,6 +4,7 @@
 
 **Merged pull requests:**
 
+- Bump github.com/Azure/terraform-module-test-helper in /test [\#156](https://github.com/Azure/terraform-azurerm-network-security-group/pull/156) ([lonegunmanb](https://github.com/lonegunmanb))
 - Bump github.com/Azure/terraform-module-test-helper from 0.15.0 to 0.26.0 in /test [\#150](https://github.com/Azure/terraform-azurerm-network-security-group/pull/150) ([lonegunmanb](https://github.com/lonegunmanb))
 - Prepare for using oidc as authentication method [\#148](https://github.com/Azure/terraform-azurerm-network-security-group/pull/148) ([lonegunmanb](https://github.com/lonegunmanb))
 - Bump github.com/Azure/terraform-module-test-helper from 0.13.0 to 0.15.0 in /test [\#123](https://github.com/Azure/terraform-azurerm-network-security-group/pull/123) ([dependabot[bot]](https://github.com/apps/dependabot))
